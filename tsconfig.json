@@ -1,0 +1,56 @@
+{
+  "compilerOptions": {
+    /* Language & Environment */
+    "target": "ES2022",
+    "lib": [
+      "ES2022"
+    ],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    /* Paths */
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    /* Interop & JSON */
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    /* Strictness */
+    "strict": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": false,
+    /* Build performance & output */
+    "skipLibCheck": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+    "sourceMap": true,
+    "declaration": false,
+    "removeComments": true,
+    /* Module output shape */
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    /* Decorators */
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "tests",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ]
+}

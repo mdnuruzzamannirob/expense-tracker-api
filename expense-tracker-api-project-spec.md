@@ -1,6 +1,6 @@
 # Expense Tracker & Personal Finance Management API
 
-**Stack:** Express.js · PostgreSQL · Prisma ORM · Redis · JWT
+**Stack:** Express.js · TypeScript · PostgreSQL · Prisma ORM · Redis · JWT
 
 ---
 
@@ -15,6 +15,7 @@ secure API architecture — not just CRUD.
 ## 2. Objective
 
 To showcase:
+
 - Relational schema design and complex joins/aggregations with PostgreSQL + Prisma
 - Secure authentication (access + refresh token flow)
 - Scheduled/background job handling (cron)
@@ -25,28 +26,30 @@ To showcase:
 
 ## 3. Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Runtime | Node.js (Express.js) |
-| Database | PostgreSQL |
-| ORM | Prisma |
-| Caching | Redis |
-| Auth | JWT (access + refresh token), bcrypt |
-| Validation | Zod |
-| Background Jobs | node-cron |
-| File/Report Export | pdfkit / json2csv |
-| Email | Nodemailer |
-| Docs | Swagger (swagger-jsdoc + swagger-ui-express) |
-| Testing | Jest + Supertest |
-| Containerization | Docker + Docker Compose |
-| CI/CD | GitHub Actions |
-| Logging | Winston + Morgan |
+| Layer              | Technology                                   |
+| ------------------ | -------------------------------------------- |
+| Runtime            | Node.js (Express.js)                         |
+| Language           | TypeScript                                   |
+| Database           | PostgreSQL                                   |
+| ORM                | Prisma                                       |
+| Caching            | Redis                                        |
+| Auth               | JWT (access + refresh token), bcrypt         |
+| Validation         | Zod                                          |
+| Background Jobs    | node-cron                                    |
+| File/Report Export | pdfkit / json2csv                            |
+| Email              | Nodemailer                                   |
+| Docs               | Swagger (swagger-jsdoc + swagger-ui-express) |
+| Testing            | Jest + Supertest                             |
+| Containerization   | Docker + Docker Compose                      |
+| CI/CD              | GitHub Actions                               |
+| Logging            | Winston + Morgan                             |
 
 ---
 
 ## 4. Core Features (Must-Have)
 
 ### 4.1 Authentication & User Management
+
 - Register / Login with hashed passwords (bcrypt)
 - JWT access token + refresh token rotation
 - Logout (refresh token invalidation)
@@ -55,11 +58,13 @@ To showcase:
 - Role support: `user`, `admin`
 
 ### 4.2 Category Management
+
 - CRUD for custom categories (income/expense type)
 - Default system categories seeded on registration
 - Category has name, type, icon, color
 
 ### 4.3 Transaction Management
+
 - CRUD for income/expense transactions
 - Fields: amount, type, category, note, date, tags
 - Filter by date range, category, type, tags
@@ -68,22 +73,26 @@ To showcase:
 - Receipt/attachment upload (image URL via Cloudinary/S3)
 
 ### 4.4 Recurring Transactions
+
 - Mark a transaction as recurring (daily/weekly/monthly)
 - Cron job auto-generates the transaction on schedule
 - Ability to pause/cancel a recurring rule
 
 ### 4.5 Budgeting
+
 - Set monthly budget limit per category
 - Real-time check: alert when spending crosses threshold (e.g. 80%, 100%)
 - `/budgets/alerts` endpoint returns over-budget categories
 - Optional email alert when budget exceeded (cron-checked)
 
 ### 4.6 Savings Goals
+
 - Create a savings goal (title, target amount, deadline)
 - Track contributions toward the goal
 - Progress percentage calculation
 
 ### 4.7 Reports & Analytics
+
 - Monthly / yearly summary (total income, expense, net savings)
 - Category-wise breakdown (pie-chart-ready JSON)
 - Income vs expense trend over time (line-chart-ready JSON)
@@ -91,6 +100,7 @@ To showcase:
 - Redis caching for expensive report queries (invalidated on new transaction)
 
 ### 4.8 Admin Panel (Basic)
+
 - List all users, deactivate/reactivate a user
 - View platform-wide stats (total users, total transaction volume)
 
@@ -297,16 +307,16 @@ expense-tracker-api/
 
 ## 9. Development Roadmap
 
-| Phase | Scope |
-|---|---|
-| 1 | Project setup, Prisma schema, Auth (register/login/refresh) |
-| 2 | Category + Transaction CRUD, pagination & filtering |
-| 3 | Reports & aggregation endpoints, Redis caching |
-| 4 | Budgets + alert logic, Savings Goals |
-| 5 | Recurring transactions (cron), CSV import, PDF/CSV export |
-| 6 | Admin panel, email notifications |
-| 7 | Testing (unit + integration), Swagger docs |
-| 8 | Docker, CI/CD pipeline, deployment (Render/Railway) |
+| Phase | Scope                                                       |
+| ----- | ----------------------------------------------------------- |
+| 1     | Project setup, Prisma schema, Auth (register/login/refresh) |
+| 2     | Category + Transaction CRUD, pagination & filtering         |
+| 3     | Reports & aggregation endpoints, Redis caching              |
+| 4     | Budgets + alert logic, Savings Goals                        |
+| 5     | Recurring transactions (cron), CSV import, PDF/CSV export   |
+| 6     | Admin panel, email notifications                            |
+| 7     | Testing (unit + integration), Swagger docs                  |
+| 8     | Docker, CI/CD pipeline, deployment (Render/Railway)         |
 
 ---
 

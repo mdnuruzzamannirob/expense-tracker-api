@@ -90,6 +90,11 @@ export const register = async (input: {
   })
 
   const tokens = await issueTokens(user)
+
+  const text = `Hi ${user.name},\n\nWelcome to Expense Tracker! We're excited to have you on board.\n\nBest,\nThe Expense Tracker Team`
+  const html = `<p>Hi ${user.name},</p><p>Welcome to Expense Tracker! We're excited to have you on board.</p><p>Best,<br>The Expense Tracker Team</p>`
+  await sendMail(user.email, 'Welcome to Expense Tracker!', text, html)
+
   return { user, ...tokens }
 }
 
@@ -152,13 +157,8 @@ export const forgotPassword = async (email: string) => {
     },
   })
   const resetUrl = `${env.CORS_ORIGIN}/reset-password?token=${resetToken}`
-  const text = `You are receiving this email because you (or someone else) have requested the reset of the password for your account.
-Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}
-If you did not request this, please ignore this email and your password will remain unchanged.`
-  const html = `<p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>
-<p>Please click on the following link to complete the process:</p>
-<p><a href="${resetUrl}">${resetUrl}</a></p>
-<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
+  const text = `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\nPlease click on the following link, or paste this into your browser to complete the process: ${resetUrl}\nThis link is valid for only 1 hour.\nIf you did not request this, please ignore this email and your password will remain unchanged.`
+  const html = `<p>You are receiving this email because you (or someone else) have requested the reset of the password for your account.</p>\n<p>Please click on the following link to complete the process:</p>\n<p><a href="${resetUrl}">${resetUrl}</a></p>\n<p>This link is valid for only 1 hour.</p>\n<p>If you did not request this, please ignore this email and your password will remain unchanged.</p>`
 
   await sendMail(user.email, 'Expense Tracker - Password Reset', text, html)
 }

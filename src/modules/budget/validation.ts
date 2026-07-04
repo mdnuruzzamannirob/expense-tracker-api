@@ -1,0 +1,23 @@
+import { z } from 'zod';
+
+export const createBudgetSchema = z.object({
+  body: z.object({
+    limit: z.number().positive(),
+    alertThreshold: z.number().int().min(1).max(100).default(80),
+    month: z.number().int().min(1).max(12),
+    year: z.number().int().min(1970),
+    categoryId: z.string().uuid(),
+  }),
+});
+
+export const listBudgetSchema = z.object({
+  query: z.object({
+    month: z.coerce.number().int().min(1).max(12).optional(),
+    year: z.coerce.number().int().min(1970).optional(),
+  }),
+});
+
+export const updateBudgetSchema = z.object({
+  params: z.object({ id: z.string().uuid() }),
+  body: createBudgetSchema.shape.body.partial(),
+});

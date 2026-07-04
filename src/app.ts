@@ -10,6 +10,14 @@ import {
   notFoundHandler,
 } from "./middlewares/error.middleware.js";
 import { apiRateLimiter } from "./middlewares/rateLimiter.js";
+import adminRoutes from "./modules/admin/routes.js";
+import authRoutes from "./modules/auth/routes.js";
+import budgetRoutes from "./modules/budget/routes.js";
+import categoryRoutes from "./modules/category/routes.js";
+import reportRoutes from "./modules/report/routes.js";
+import savingsGoalRoutes from "./modules/savingsGoal/routes.js";
+import transactionRoutes from "./modules/transaction/routes.js";
+import userRoutes from "./modules/user/routes.js";
 import { sendResponse } from "./utils/response.js";
 
 const app = express();
@@ -53,6 +61,15 @@ app.get("/api", (_req, res) => {
     health: "/health",
   });
 });
+
+app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/budgets", budgetRoutes);
+app.use("/api/savings-goals", savingsGoalRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

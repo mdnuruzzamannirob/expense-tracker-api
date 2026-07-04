@@ -1,0 +1,109 @@
+import bcrypt from 'bcrypt';
+import crypto from 'node:crypto';
+import { prisma } from '../../config/db.js';
+import { AppError } from '../../utils/response.js';
+import {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+  type JwtPayload,
+} from '../../utils/jwt.js';
+import { sendMail } from '../../utils/mailer.js';
+
+const defaultCategories = [
+  { name: 'Salary', type: 'INCOME' as const, icon: 'wallet', color: '#1f9d55' },
+  { name: 'Freelance', type: 'INCOME' as const, icon: 'briefcase', color: '#2563eb' },
+  { name: 'Food', type: 'EXPENSE' as const, icon: 'utensils', color: '#f97316' },
+  { name: 'Transport', type: 'EXPENSE' as const, icon: 'car', color: '#7c3aed' },
+  { name: 'Bills', type: 'EXPENSE' as const, icon: 'receipt', color: '#dc2626' },
+];
+
+const tokenPayload = (user: { id: string; email: string; role: string }): JwtPayload => ({
+  sub: user.id,
+  email: user.email,
+  role: user.role,
+});
+
+const issueTokens = async (user: { id: string; email: string; role: string }) => {
+  const payload = tokenPayload(user);
+  const accessToken = signAccessToken(payload);
+  const refreshToken = signRefreshToken(payload);
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+  await prisma.refreshToken.create({
+    data: { token: refreshToken, userId: user.id, expiresAt },
+  });
+
+  return { accessToken, refreshToken };
+};
+
+export const register = async (input: {
+  name: string;
+  email: string;
+  password: string;
+  currency: string;
+}) => {
+  const existing = await prisma.user.findUnique({ where: { email: input.email } });
+  if (existing) throw new AppError(409, 'Email is already registered');
+
+  const password = await bcrypt.hash(input.password, 12);
+  const user = await prisma.user.create({
+    data: {
+      name: input.name,
+      email: input.email,
+      password,
+      currency: input.currency,
+      categories: { create: defaultCategories },
+    },
+    select: { id: true, name: true, email: true, role: true, currency: true },
+  });
+
+  const tokens = await issueTokens(user);
+  return { user, ...tokens };
+};
+
+export const login = async (email: string, password: string) => {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user || !user.isActive) throw new AppError(401, 'Invalid credentials');
+
+  const matched = await bcrypt.compare(password, user.password);
+  if (!matched) throw new AppError(401, 'Invalid credentials');
+
+  const tokens = await issueTokens(user);
+  return {
+    user: { id: user.id, name: user.name, email: user.email, role: user.role, currency: user.currency },
+    ...tokens,
+  };
+};
+
+export const refresh = async (refreshToken: string) => {
+  const stored = await prisma.refreshToken.findUnique({ where: { token: refreshToken } });
+  if (!stored || stored.revoked || stored.expiresAt < new Date()) {
+    throw new AppError(401, 'Invalid refresh token');
+  }
+
+  const payload = verifyRefreshToken(refreshToken);
+  await prisma.refreshToken.update({ where: { token: refreshToken }, data: { revoked: true } });
+  const user = await prisma.user.findUniqueOrThrow({ where: { id: payload.sub } });
+  return issueTokens(user);
+};
+
+export const logout = async (refreshToken: string) => {
+  await prisma.refreshToken.updateMany({ where: { token: refreshToken }, data: { revoked: true } });
+};
+
+export const forgotPassword = async (email: string) => {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return;
+
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  await sendMail(
+    user.email,
+    'Expense Tracker password reset',
+    `Use this reset token to continue: ${resetToken}`,
+  );
+};
+
+export const resetPassword = async (_token: string, _password: string) => {
+  throw new AppError(501, 'Password reset token persistence is not configured in the current schema');
+};

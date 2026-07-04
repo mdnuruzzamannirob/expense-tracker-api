@@ -96,6 +96,9 @@ const buildItem = ([path, methodsObject]: [string, OpenApiPathItem]) => {
     .filter((method) => methodsObject[method])
     .map((method) => {
       const operation = methodsObject[method];
+      if (!operation) {
+        throw new Error(`Missing operation metadata for ${method.toUpperCase()} ${path}`);
+      }
 
       return {
         name: operation.summary ?? `${method.toUpperCase()} ${path}`,
@@ -119,7 +122,8 @@ const groupByTag = () => {
   for (const entry of Object.entries(openApiSpec.paths ?? {})) {
     const [, methodsObject] = entry;
     const firstOperation = methods.find((method) => methodsObject[method]);
-    const tag = methodsObject[firstOperation ?? 'get']?.tags?.[0] ?? 'Ungrouped';
+    const firstTaggedOperation = firstOperation ? methodsObject[firstOperation] : undefined;
+    const tag = firstTaggedOperation?.tags?.[0] ?? 'Ungrouped';
 
     const existing = groups.get(tag) ?? [];
     existing.push(entry as [string, OpenApiPathItem]);

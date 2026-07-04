@@ -7,7 +7,9 @@
     ],
     "module": "nodenext",
     "moduleResolution": "nodenext",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     /* Paths */
     "rootDir": "./src",
     "outDir": "./dist",

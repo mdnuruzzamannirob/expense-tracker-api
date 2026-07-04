@@ -22,7 +22,7 @@ export const create: RequestHandler = async (req, res, next) => {
 
 export const update: RequestHandler = async (req, res, next) => {
   try {
-    sendResponse(res, 200, 'Transaction updated', await service.update(req.user!.id, req.params.id, req.body));
+    sendResponse(res, 200, 'Transaction updated', await service.update(req.user!.id, String(req.params.id), req.body));
   } catch (error) {
     next(error);
   }
@@ -30,7 +30,7 @@ export const update: RequestHandler = async (req, res, next) => {
 
 export const remove: RequestHandler = async (req, res, next) => {
   try {
-    await service.remove(req.user!.id, req.params.id);
+    await service.remove(req.user!.id, String(req.params.id));
     sendResponse(res, 200, 'Transaction deleted');
   } catch (error) {
     next(error);

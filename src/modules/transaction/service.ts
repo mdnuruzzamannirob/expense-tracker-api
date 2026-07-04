@@ -103,7 +103,10 @@ export const importCsv = async (userId: string, csv: string) => {
   for (const row of rows) {
     if (!row.trim()) continue;
     const values = row.split(',').map((item) => item.trim());
-    const record = Object.fromEntries(headers.map((header, index) => [header, values[index] ?? '']));
+    const record = Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])) as Record<string, string>;
+    if (!record.amount || !record.type || !record.categoryId || !record.date) {
+      throw new AppError(400, 'CSV rows must include amount, type, categoryId, and date');
+    }
     const input: TransactionInput = {
       amount: Number(record.amount),
       type: record.type as 'INCOME' | 'EXPENSE',

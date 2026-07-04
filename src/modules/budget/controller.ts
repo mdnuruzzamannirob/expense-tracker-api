@@ -28,7 +28,7 @@ export const alerts: RequestHandler = async (req, res, next) => {
 
 export const update: RequestHandler = async (req, res, next) => {
   try {
-    sendResponse(res, 200, 'Budget updated', await service.update(req.user!.id, req.params.id, req.body));
+    sendResponse(res, 200, 'Budget updated', await service.update(req.user!.id, String(req.params.id), req.body));
   } catch (error) {
     next(error);
   }

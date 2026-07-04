@@ -1,8 +1,8 @@
-import type { ErrorRequestHandler, RequestHandler } from 'express';
-import { ZodError } from 'zod';
-import { Prisma } from '../generated/prisma/client.js';
-import { env } from '../config/env.js';
-import { AppError } from '../utils/response.js';
+import type { ErrorRequestHandler, RequestHandler } from "express";
+import { ZodError } from "zod";
+import { Prisma } from "../generated/prisma/client.js";
+import { env } from "../config/env.js";
+import { AppError } from "../utils/response.js";
 
 export const notFoundHandler: RequestHandler = (req, _res, next) => {
   next(new AppError(404, `Route ${req.method} ${req.originalUrl} not found`));
@@ -12,7 +12,7 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof ZodError) {
     return res.status(400).json({
       success: false,
-      message: 'Validation failed',
+      message: "Validation failed",
       errors: error.issues,
     });
   }
@@ -20,7 +20,7 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
     return res.status(400).json({
       success: false,
-      message: 'Database request failed',
+      message: "Database request failed",
       code: error.code,
     });
   }
@@ -29,7 +29,12 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
 
   return res.status(statusCode).json({
     success: false,
-    message: error instanceof Error ? error.message : 'Internal server error',
-    stack: env.NODE_ENV === 'production' ? undefined : error instanceof Error ? error.stack : undefined,
+    message: error instanceof Error ? error.message : "Internal server error",
+    stack:
+      env.NODE_ENV === "production"
+        ? undefined
+        : error instanceof Error
+          ? error.stack
+          : undefined,
   });
 };

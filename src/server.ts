@@ -1,15 +1,15 @@
-import app from './app.js';
-import { connectDatabase, disconnectDatabase } from './config/db.js';
-import { env } from './config/env.js';
-import { connectRedis, disconnectRedis } from './config/redis.js';
-import { scheduleBudgetAlertJob } from './jobs/budgetAlert.job.js';
-import { scheduleRecurringTransactionJob } from './jobs/recurringTransaction.job.js';
+import app from "./app.js";
+import { connectDatabase, disconnectDatabase } from "./config/db.js";
+import { env } from "./config/env.js";
+import { connectRedis, disconnectRedis } from "./config/redis.js";
+import { scheduleBudgetAlertJob } from "./jobs/budgetAlert.job.js";
+import { scheduleRecurringTransactionJob } from "./jobs/recurringTransaction.job.js";
 
 const bootstrap = async () => {
   await connectDatabase();
   await connectRedis();
 
-  if (env.NODE_ENV !== 'test') {
+  if (env.NODE_ENV !== "test") {
     scheduleRecurringTransactionJob();
     scheduleBudgetAlertJob();
   }
@@ -26,11 +26,11 @@ const bootstrap = async () => {
     });
   };
 
-  process.on('SIGTERM', () => void shutdown('SIGTERM'));
-  process.on('SIGINT', () => void shutdown('SIGINT'));
+  process.on("SIGTERM", () => void shutdown("SIGTERM"));
+  process.on("SIGINT", () => void shutdown("SIGINT"));
 };
 
 void bootstrap().catch((error) => {
-  console.error('Failed to start server', error);
+  console.error("Failed to start server", error);
   process.exit(1);
 });

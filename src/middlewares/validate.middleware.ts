@@ -1,14 +1,15 @@
-import type { NextFunction, Request, Response } from 'express';
-import type { ZodTypeAny } from 'zod';
+import type { NextFunction, Request, Response } from "express";
+import type { ZodTypeAny } from "zod";
 
 type RequestParts = {
   body?: unknown;
-  params?: Request['params'];
-  query?: Request['query'];
+  params?: Request["params"];
+  query?: Request["query"];
 };
 
 export const validate =
-  (schema: ZodTypeAny) => (req: Request, _res: Response, next: NextFunction) => {
+  (schema: ZodTypeAny) =>
+  (req: Request, _res: Response, next: NextFunction) => {
     const parsed = schema.parse({
       body: req.body,
       params: req.params,

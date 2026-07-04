@@ -1,5 +1,5 @@
-import jwt, { type SignOptions } from 'jsonwebtoken';
-import { env } from '../config/env.js';
+import jwt, { type SignOptions } from "jsonwebtoken";
+import { env } from "../config/env.js";
 
 export type JwtPayload = {
   sub: string;
@@ -7,9 +7,11 @@ export type JwtPayload = {
   role: string;
 };
 
-const accessOptions: SignOptions = { expiresIn: env.JWT_ACCESS_EXPIRES_IN as SignOptions['expiresIn'] };
+const accessOptions: SignOptions = {
+  expiresIn: env.JWT_ACCESS_EXPIRES_IN as SignOptions["expiresIn"],
+};
 const refreshOptions: SignOptions = {
-  expiresIn: env.JWT_REFRESH_EXPIRES_IN as SignOptions['expiresIn'],
+  expiresIn: env.JWT_REFRESH_EXPIRES_IN as SignOptions["expiresIn"],
 };
 
 export const signAccessToken = (payload: JwtPayload) =>

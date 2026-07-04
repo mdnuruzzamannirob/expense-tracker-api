@@ -1,8 +1,10 @@
-import 'dotenv/config';
-import { z } from 'zod';
+import 'dotenv/config'
+import { z } from 'zod'
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
+  NODE_ENV: z
+    .enum(['development', 'test', 'production'])
+    .default('development'),
   PORT: z.coerce.number().int().positive().default(5000),
   DATABASE_URL: z.string().url(),
   REDIS_URL: z.string().url().default('redis://localhost:6379'),
@@ -16,14 +18,17 @@ const envSchema = z.object({
   SMTP_USER: z.string().optional(),
   SMTP_PASS: z.string().optional(),
   MAIL_FROM: z.string().email().optional(),
-});
+})
 
-const parsed = envSchema.safeParse(process.env);
+const parsed = envSchema.safeParse(process.env)
 
 if (!parsed.success) {
-  console.error('Invalid environment configuration', parsed.error.flatten().fieldErrors);
-  process.exit(1);
+  console.error(
+    'Invalid environment configuration',
+    parsed.error.flatten().fieldErrors,
+  )
+  process.exit(1)
 }
 
-export const env = parsed.data;
-export const isProduction = env.NODE_ENV === 'production';
+export const env = parsed.data
+export const isProduction = env.NODE_ENV === 'production'

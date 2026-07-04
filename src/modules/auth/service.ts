@@ -97,6 +97,13 @@ export const forgotPassword = async (email: string) => {
   if (!user) return;
 
   const resetToken = crypto.randomBytes(32).toString('hex');
+  await prisma.passwordResetToken.create({
+    data: {
+      token: resetToken,
+      userId: user.id,
+      expiresAt: new Date(Date.now() + 60 * 60 * 1000),
+    },
+  });
   await sendMail(
     user.email,
     'Expense Tracker password reset',
@@ -104,6 +111,15 @@ export const forgotPassword = async (email: string) => {
   );
 };
 
-export const resetPassword = async (_token: string, _password: string) => {
-  throw new AppError(501, 'Password reset token persistence is not configured in the current schema');
+export const resetPassword = async (token: string, password: string) => {
+  const stored = await prisma.passwordResetToken.findUnique({ where: { token } });
+  if (!stored || stored.used || stored.expiresAt < new Date()) {
+    throw new AppError(400, 'Invalid or expired reset token');
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 12);
+  await prisma.$transaction([
+    prisma.user.update({ where: { id: stored.userId }, data: { password: hashedPassword } }),
+    prisma.passwordResetToken.update({ where: { token }, data: { used: true } }),
+  ]);
 };

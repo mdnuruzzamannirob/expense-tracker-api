@@ -25,6 +25,7 @@ model User {
   budgets       Budget[]
   savingsGoals  SavingsGoal[]
   refreshTokens RefreshToken[]
+  passwordResetTokens PasswordResetToken[]
   createdAt     DateTime  @default(now())
 }
 
@@ -96,4 +97,13 @@ model RefreshToken {
   user      User @relation(fields: [userId], references: [id])
   expiresAt DateTime
   revoked   Boolean  @default(false)
+}
+
+model PasswordResetToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  used      Boolean  @default(false)
 }

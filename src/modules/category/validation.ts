@@ -9,13 +9,13 @@ export const createCategorySchema = z.object({
     icon: z.string().optional(),
     color: z.string().optional(),
   }).strict(),
-}).strict();
+}).passthrough();
 
 export const updateCategorySchema = z.object({
   params: z.object({ id: z.string().uuid() }),
   body: createCategorySchema.shape.body.partial(),
-}).strict();
+}).passthrough();
 
 export const idParamSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
-}).strict();
+}).passthrough();

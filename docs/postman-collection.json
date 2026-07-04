@@ -60,12 +60,36 @@
               },
               "response": [
                 {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "201 Registered successfully",
                   "originalRequest": {},
                   "status": "Registered successfully",
                   "code": 201,
                   "header": [],
                   "body": "{\n  \"message\": \"Registered successfully\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n      \"name\": \"Nazmul Hasan\",\n      \"email\": \"nazmul@example.com\",\n      \"role\": \"USER\",\n      \"currency\": \"BDT\"\n    },\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"refreshToken\": \"eyJhbGciOi...\"\n  }\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
                 },
                 {
                   "name": "400 Validation failed",
@@ -178,6 +202,30 @@
                   "body": "{\n  \"message\": \"Logged in successfully\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n      \"name\": \"Nazmul Hasan\",\n      \"email\": \"nazmul@example.com\",\n      \"role\": \"USER\",\n      \"currency\": \"BDT\"\n    },\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"refreshToken\": \"eyJhbGciOi...\"\n  }\n}"
                 },
                 {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -279,6 +327,38 @@
                 "description": "Rotate refresh token"
               },
               "response": [
+                {
+                  "name": "200 Token refreshed",
+                  "originalRequest": {},
+                  "status": "Token refreshed",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Token refreshed\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -382,6 +462,38 @@
               },
               "response": [
                 {
+                  "name": "200 Logged out successfully",
+                  "originalRequest": {},
+                  "status": "Logged out successfully",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Logged out successfully\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -467,6 +579,38 @@
               },
               "response": [
                 {
+                  "name": "200 Reset mail sent if account exists",
+                  "originalRequest": {},
+                  "status": "Reset mail sent if account exists",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Reset mail sent if account exists\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -551,6 +695,38 @@
                 "description": "Reset password using token"
               },
               "response": [
+                {
+                  "name": "200 Password reset successfully",
+                  "originalRequest": {},
+                  "status": "Password reset successfully",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Password reset successfully\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -647,6 +823,30 @@
                   "body": "{\n  \"message\": \"Profile fetched\",\n  \"data\": {\n    \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n    \"name\": \"Nazmul Hasan\",\n    \"email\": \"nazmul@example.com\",\n    \"role\": \"USER\",\n    \"currency\": \"BDT\",\n    \"isActive\": true\n  }\n}"
                 },
                 {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -736,6 +936,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Profile updated",
+                  "originalRequest": {},
+                  "status": "Profile updated",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Profile updated\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -833,6 +1065,38 @@
               },
               "response": [
                 {
+                  "name": "200 Password changed",
+                  "originalRequest": {},
+                  "status": "Password changed",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Password changed\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -927,6 +1191,30 @@
                   "body": "[\n  {\n    \"id\": \"...\",\n    \"name\": \"Food\",\n    \"type\": \"EXPENSE\",\n    \"icon\": \"utensils\",\n    \"color\": \"#f97316\"\n  }\n]"
                 },
                 {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1016,6 +1304,38 @@
               },
               "response": [
                 {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Category created",
+                  "originalRequest": {},
+                  "status": "Category created",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Category created\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1098,6 +1418,38 @@
               },
               "response": [
                 {
+                  "name": "200 Category updated",
+                  "originalRequest": {},
+                  "status": "Category updated",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Category updated\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1174,6 +1526,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Category deleted",
+                  "originalRequest": {},
+                  "status": "Category deleted",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Category deleted\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -1258,12 +1642,12 @@
                     },
                     {
                       "key": "from",
-                      "value": "2026-07-04T09:04:47.832Z",
+                      "value": "2026-07-04T10:23:31.109Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "2026-07-04T09:04:47.832Z",
+                      "value": "2026-07-04T10:23:31.110Z",
                       "description": ""
                     },
                     {
@@ -1303,6 +1687,30 @@
                   "code": 200,
                   "header": [],
                   "body": "[\n  {\n    \"id\": \"...\",\n    \"amount\": 1200,\n    \"type\": \"EXPENSE\",\n    \"note\": \"Groceries\",\n    \"date\": \"2026-07-04T10:00:00.000Z\",\n    \"tags\": [\n      \"food\",\n      \"monthly\"\n    ],\n    \"categoryId\": \"...\",\n    \"userId\": \"...\"\n  }\n]"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
                 },
                 {
                   "name": "400 Validation failed",
@@ -1373,7 +1781,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-04T09:04:47.832Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
+                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-04T10:23:31.110Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1393,6 +1801,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Transaction created",
+                  "originalRequest": {},
+                  "status": "Transaction created",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Transaction created\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -1486,6 +1926,38 @@
               },
               "response": [
                 {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Transactions imported",
+                  "originalRequest": {},
+                  "status": "Transactions imported",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Transactions imported\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1568,6 +2040,38 @@
               },
               "response": [
                 {
+                  "name": "200 Transaction updated",
+                  "originalRequest": {},
+                  "status": "Transaction updated",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Transaction updated\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1644,6 +2148,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Transaction deleted",
+                  "originalRequest": {},
+                  "status": "Transaction deleted",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Transaction deleted\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -1742,6 +2278,38 @@
               },
               "response": [
                 {
+                  "name": "200 Budgets fetched",
+                  "originalRequest": {},
+                  "status": "Budgets fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Budgets fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1831,6 +2399,38 @@
               },
               "response": [
                 {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Budget created",
+                  "originalRequest": {},
+                  "status": "Budget created",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Budget created\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1913,6 +2513,38 @@
               },
               "response": [
                 {
+                  "name": "200 Budget alerts fetched",
+                  "originalRequest": {},
+                  "status": "Budget alerts fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Budget alerts fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -1994,6 +2626,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Budget updated",
+                  "originalRequest": {},
+                  "status": "Budget updated",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Budget updated\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -2081,6 +2745,38 @@
               },
               "response": [
                 {
+                  "name": "200 Savings goals fetched",
+                  "originalRequest": {},
+                  "status": "Savings goals fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Savings goals fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -2149,7 +2845,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"New Laptop\",\n  \"targetAmount\": 120000,\n  \"deadline\": \"2026-07-04T09:04:47.832Z\"\n}",
+                  "raw": "{\n  \"title\": \"New Laptop\",\n  \"targetAmount\": 120000,\n  \"deadline\": \"2026-07-04T10:23:31.110Z\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2169,6 +2865,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Savings goal created",
+                  "originalRequest": {},
+                  "status": "Savings goal created",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Savings goal created\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -2266,6 +2994,38 @@
               },
               "response": [
                 {
+                  "name": "200 Contribution added",
+                  "originalRequest": {},
+                  "status": "Contribution added",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Contribution added\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -2347,6 +3107,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Savings goal deleted",
+                  "originalRequest": {},
+                  "status": "Savings goal deleted",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Savings goal deleted\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -2454,6 +3246,30 @@
                   "body": "{\n  \"message\": \"Monthly report fetched\",\n  \"data\": {\n    \"totalIncome\": 50000,\n    \"totalExpense\": 24000,\n    \"netSavings\": 26000\n  }\n}"
                 },
                 {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -2541,6 +3357,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Yearly report fetched",
+                  "originalRequest": {},
+                  "status": "Yearly report fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Yearly report fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -2635,6 +3483,38 @@
               },
               "response": [
                 {
+                  "name": "200 Category breakdown fetched",
+                  "originalRequest": {},
+                  "status": "Category breakdown fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Category breakdown fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -2704,12 +3584,12 @@
                   "query": [
                     {
                       "key": "from",
-                      "value": "2026-07-04T09:04:47.832Z",
+                      "value": "2026-07-04T10:23:31.110Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "2026-07-04T09:04:47.832Z",
+                      "value": "2026-07-04T10:23:31.110Z",
                       "description": ""
                     }
                   ]
@@ -2727,6 +3607,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Trend fetched",
+                  "originalRequest": {},
+                  "status": "Trend fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Trend fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -2826,6 +3738,38 @@
               },
               "response": [
                 {
+                  "name": "200 Report exported",
+                  "originalRequest": {},
+                  "status": "Report exported",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Report exported\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -2912,6 +3856,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Users fetched",
+                  "originalRequest": {},
+                  "status": "Users fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Users fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},
@@ -3010,6 +3986,38 @@
               },
               "response": [
                 {
+                  "name": "200 User status updated",
+                  "originalRequest": {},
+                  "status": "User status updated",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"User status updated\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
                   "name": "400 Validation failed",
                   "originalRequest": {},
                   "status": "Validation failed",
@@ -3091,6 +4099,38 @@
                 }
               },
               "response": [
+                {
+                  "name": "200 Platform stats fetched",
+                  "originalRequest": {},
+                  "status": "Platform stats fetched",
+                  "code": 200,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Platform stats fetched\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "201 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 201,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "202 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 202,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
+                {
+                  "name": "204 Response",
+                  "originalRequest": {},
+                  "status": "Response",
+                  "code": 204,
+                  "header": [],
+                  "body": "{\n  \"success\": true,\n  \"message\": \"Success\",\n  \"data\": null\n}"
+                },
                 {
                   "name": "400 Validation failed",
                   "originalRequest": {},

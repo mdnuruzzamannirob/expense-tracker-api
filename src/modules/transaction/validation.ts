@@ -15,7 +15,7 @@ export const listTransactionsSchema = z.object({
     sortBy: z.enum(['date', 'amount', 'createdAt']).default('date'),
     sortOrder: z.enum(['asc', 'desc']).default('desc'),
   }).strict(),
-}).strict();
+}).passthrough();
 
 export const createTransactionSchema = z.object({
   body: z.object({
@@ -29,11 +29,11 @@ export const createTransactionSchema = z.object({
     isRecurring: z.boolean().default(false),
     recurringRule: recurringRule.optional(),
   }).strict(),
-}).strict();
+}).passthrough();
 
 export const updateTransactionSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
   body: createTransactionSchema.shape.body.partial(),
-}).strict();
+}).passthrough();
 
-export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }).strict() }).strict();
+export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }).strict() }).passthrough();

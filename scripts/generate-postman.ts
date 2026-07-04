@@ -91,14 +91,26 @@ const buildResponseBody = (operation: OpenApiOperation) => {
   for (const code of orderedCodes) {
     const response = responses[code];
     const json = response?.content?.['application/json'];
-    if (json?.example !== undefined) {
+    const isSuccess = ['200', '201', '202', '204'].includes(code);
+    const example =
+      json?.example !== undefined
+        ? json.example
+        : isSuccess
+          ? {
+              success: true,
+              message: response?.description ?? 'Success',
+              data: json?.schema ? getExampleFromSchema(json.schema) ?? null : null,
+            }
+          : undefined;
+
+    if (example !== undefined) {
       responseItems.push({
-        name: `${code} ${response.description ?? 'Response'}`,
+        name: `${code} ${response?.description ?? 'Response'}`,
         originalRequest: {},
-        status: response.description ?? 'Response',
+        status: response?.description ?? 'Response',
         code: Number(code),
         header: [],
-        body: JSON.stringify(json.example, null, 2),
+        body: JSON.stringify(example, null, 2),
       });
     }
   }

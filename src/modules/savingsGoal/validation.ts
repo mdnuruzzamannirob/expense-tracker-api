@@ -6,11 +6,11 @@ export const createSavingsGoalSchema = z.object({
     targetAmount: z.number().positive(),
     deadline: z.string().datetime(),
   }).strict(),
-}).strict();
+}).passthrough();
 
 export const contributeSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
   body: z.object({ amount: z.number().positive() }).strict(),
-}).strict();
+}).passthrough();
 
-export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }).strict() }).strict();
+export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }).strict() }).passthrough();

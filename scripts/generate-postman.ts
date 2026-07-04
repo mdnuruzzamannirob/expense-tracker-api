@@ -85,10 +85,9 @@ const buildRequestBody = (operation: OpenApiOperation) => {
 
 const buildResponseBody = (operation: OpenApiOperation) => {
   const responses = operation?.responses ?? {};
-  const orderedCodes = ['200', '201', '202', '204', '400', '401', '403', '404', '500'];
   const responseItems = [];
 
-  for (const code of orderedCodes) {
+  for (const code of Object.keys(responses)) {
     const response = responses[code];
     const json = response?.content?.['application/json'];
     const isSuccess = ['200', '201', '202', '204'].includes(code);

@@ -720,21 +720,44 @@ export const openApiSpec: OpenApiDocument = {
   },
 };
 
-const standardErrorResponses = {
-  400: apiErrorResponse(400, 'Validation failed'),
-  401: apiErrorResponse(401, 'Authentication token is required'),
-  403: apiErrorResponse(403, 'You do not have permission to access this resource'),
-  404: apiErrorResponse(404, 'Resource not found'),
-  500: apiErrorResponse(500, 'Internal server error'),
-};
+const hasPathParams = (path: string) => /\{[^}]+\}/.test(path);
 
-for (const pathItem of Object.values(openApiSpec.paths as Record<string, Record<string, Record<string, unknown>> | undefined>)) {
+for (const [path, pathItem] of Object.entries(
+  openApiSpec.paths as Record<string, Record<string, Record<string, unknown>> | undefined>,
+)) {
   if (!pathItem) continue;
 
-  for (const operation of Object.values(pathItem)) {
+  for (const [method, operation] of Object.entries(pathItem)) {
     const responses = (operation.responses ?? {}) as Record<string, unknown>;
+    const inputValidation =
+      method !== 'get' ||
+      Boolean((operation as Record<string, unknown>).requestBody) ||
+      Boolean((operation as Record<string, unknown>).parameters);
+    const isPublicAuthRoute = path.startsWith('/auth');
+    const isAdminRoute = path.startsWith('/admin');
+
+    const injected: Record<string, unknown> = {
+      500: apiErrorResponse(500, 'Internal server error'),
+    };
+
+    if (inputValidation) {
+      injected[400] = apiErrorResponse(400, 'Validation failed');
+    }
+
+    if (!isPublicAuthRoute) {
+      injected[401] = apiErrorResponse(401, 'Authentication token is required');
+    }
+
+    if (isAdminRoute) {
+      injected[403] = apiErrorResponse(403, 'You do not have permission to access this resource');
+    }
+
+    if (hasPathParams(path)) {
+      injected[404] = apiErrorResponse(404, 'Resource not found');
+    }
+
     operation.responses = {
-      ...standardErrorResponses,
+      ...injected,
       ...responses,
     };
   }

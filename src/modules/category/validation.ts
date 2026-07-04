@@ -8,14 +8,14 @@ export const createCategorySchema = z.object({
     type: typeSchema,
     icon: z.string().optional(),
     color: z.string().optional(),
-  }),
-});
+  }).strict(),
+}).strict();
 
 export const updateCategorySchema = z.object({
   params: z.object({ id: z.string().uuid() }),
   body: createCategorySchema.shape.body.partial(),
-});
+}).strict();
 
 export const idParamSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
-});
+}).strict();

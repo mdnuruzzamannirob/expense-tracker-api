@@ -1,5 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import type { ZodTypeAny } from "zod";
+import { AppError } from "../utils/response.js";
 
 type RequestParts = {
   body?: unknown;
@@ -10,14 +11,20 @@ type RequestParts = {
 export const validate =
   (schema: ZodTypeAny) =>
   (req: Request, _res: Response, next: NextFunction) => {
-    const parsed = schema.parse({
+    const parsed = schema.safeParse({
       body: req.body,
       params: req.params,
       query: req.query,
-    }) as RequestParts;
+    });
 
-    req.body = parsed.body ?? req.body;
-    req.params = parsed.params ?? req.params;
-    req.query = parsed.query ?? req.query;
+    if (!parsed.success) {
+      return next(new AppError(400, "Validation failed"));
+    }
+
+    const data = parsed.data as RequestParts;
+
+    req.body = data.body ?? req.body;
+    req.params = data.params ?? req.params;
+    req.query = data.query ?? req.query;
     next();
   };

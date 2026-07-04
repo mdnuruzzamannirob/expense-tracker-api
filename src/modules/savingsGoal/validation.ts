@@ -5,12 +5,12 @@ export const createSavingsGoalSchema = z.object({
     title: z.string().min(1),
     targetAmount: z.number().positive(),
     deadline: z.string().datetime(),
-  }),
-});
+  }).strict(),
+}).strict();
 
 export const contributeSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
-  body: z.object({ amount: z.number().positive() }),
-});
+  body: z.object({ amount: z.number().positive() }).strict(),
+}).strict();
 
-export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }) });
+export const idParamSchema = z.object({ params: z.object({ id: z.string().uuid() }).strict() }).strict();

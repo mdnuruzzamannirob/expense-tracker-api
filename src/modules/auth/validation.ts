@@ -6,29 +6,29 @@ export const registerSchema = z.object({
     email: z.string().email().toLowerCase(),
     password: z.string().min(8),
     currency: z.string().min(3).max(3).default('BDT'),
-  }),
-})
+  }).strict(),
+}).strict()
 
 export const loginSchema = z.object({
   body: z.object({
     email: z.string().email().toLowerCase(),
     password: z.string().min(1),
-  }),
-})
+  }).strict(),
+}).strict()
 
 export const refreshSchema = z.object({
-  body: z.object({ refreshToken: z.string().min(1) }),
-})
+  body: z.object({ refreshToken: z.string().min(1) }).strict(),
+}).strict()
 
 export const logoutSchema = refreshSchema
 
 export const forgotPasswordSchema = z.object({
-  body: z.object({ email: z.string().email().toLowerCase() }),
-})
+  body: z.object({ email: z.string().email().toLowerCase() }).strict(),
+}).strict()
 
 export const resetPasswordSchema = z.object({
   body: z.object({
     token: z.string().min(1),
     password: z.string().min(8),
-  }),
-})
+  }).strict(),
+}).strict()

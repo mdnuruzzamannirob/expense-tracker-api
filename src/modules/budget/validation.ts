@@ -7,17 +7,17 @@ export const createBudgetSchema = z.object({
     month: z.number().int().min(1).max(12),
     year: z.number().int().min(1970),
     categoryId: z.string().uuid(),
-  }),
-});
+  }).strict(),
+}).strict();
 
 export const listBudgetSchema = z.object({
   query: z.object({
     month: z.coerce.number().int().min(1).max(12).optional(),
     year: z.coerce.number().int().min(1970).optional(),
-  }),
-});
+  }).strict(),
+}).strict();
 
 export const updateBudgetSchema = z.object({
   params: z.object({ id: z.string().uuid() }),
   body: createBudgetSchema.shape.body.partial(),
-});
+}).strict();

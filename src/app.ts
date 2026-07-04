@@ -21,6 +21,7 @@ import userRoutes from "./modules/user/routes.js";
 import { sendResponse } from "./utils/response.js";
 
 const app = express();
+app.set("trust proxy", 1);
 
 const allowedOrigins = env.CORS_ORIGIN.split(",").map((origin) =>
   origin.trim(),

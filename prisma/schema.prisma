@@ -10,5 +10,90 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          Role      @default(USER)
+  currency      String    @default("BDT")
+  isActive      Boolean   @default(true)
+  categories    Category[]
+  transactions  Transaction[]
+  budgets       Budget[]
+  savingsGoals  SavingsGoal[]
+  refreshTokens RefreshToken[]
+  createdAt     DateTime  @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Category {
+  id           String   @id @default(uuid())
+  name         String
+  type         TxnType
+  icon         String?
+  color        String?
+  userId       String
+  user         User @relation(fields: [userId], references: [id])
+  transactions Transaction[]
+  budgets      Budget[]
+}
+
+enum TxnType {
+  INCOME
+  EXPENSE
+}
+
+model Transaction {
+  id            String    @id @default(uuid())
+  amount        Float
+  type          TxnType
+  note          String?
+  date          DateTime
+  tags          String[]
+  receiptUrl    String?
+  isRecurring   Boolean   @default(false)
+  recurringRule String?   // e.g. "MONTHLY"
+  userId        String
+  categoryId    String
+  user          User @relation(fields: [userId], references: [id])
+  category      Category @relation(fields: [categoryId], references: [id])
+  createdAt     DateTime  @default(now())
+}
+
+model Budget {
+  id             String @id @default(uuid())
+  limit          Float
+  alertThreshold Int    @default(80) // percentage
+  month          Int
+  year           Int
+  userId         String
+  categoryId     String
+  user           User @relation(fields: [userId], references: [id])
+  category       Category @relation(fields: [categoryId], references: [id])
+}
+
+model SavingsGoal {
+  id            String   @id @default(uuid())
+  title         String
+  targetAmount  Float
+  currentAmount Float    @default(0)
+  deadline      DateTime
+  userId        String
+  user          User @relation(fields: [userId], references: [id])
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  user      User @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  revoked   Boolean  @default(false)
 }

@@ -3,46 +3,79 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { openApiSpec } from '../src/docs/swagger-data.js';
 
+type JsonSchema = Record<string, any>;
 type OpenApiOperation = Record<string, any>;
 type OpenApiPathItem = Record<string, OpenApiOperation>;
 
 const root = dirname(fileURLToPath(new URL('../package.json', import.meta.url)));
 const outputPath = resolve(root, 'docs', 'postman-collection.json');
 const methods = ['get', 'post', 'put', 'patch', 'delete'] as const;
+const collectionVariables = [
+  { key: 'baseUrl', value: 'http://localhost:5000' },
+  { key: 'accessToken', value: '' },
+  { key: 'refreshToken', value: '' },
+];
 
-const findSuccessResponse = (operation: OpenApiOperation) => {
-  const responses = operation?.responses ?? {};
-  const successCodes = ['200', '201', '202', '204'];
+const sampleUuid = '00000000-0000-0000-0000-000000000001';
 
-  for (const code of successCodes) {
-    const response = responses[code];
-    const json = response?.content?.['application/json'];
-    if (json) {
-      return { statusCode: code, response, json };
+const getExampleFromSchema = (schema?: JsonSchema): any => {
+  if (!schema) return undefined;
+  if (schema.example !== undefined) return schema.example;
+  if (schema.default !== undefined) return schema.default;
+  if (schema.enum?.length) return schema.enum[0];
+
+  switch (schema.type) {
+    case 'string':
+      if (schema.format === 'uuid') return sampleUuid;
+      if (schema.format === 'email') return 'user@example.com';
+      if (schema.format === 'date-time') return new Date().toISOString();
+      if (schema.format === 'binary') return '';
+      return 'string';
+    case 'number':
+    case 'integer':
+      return 1;
+    case 'boolean':
+      return true;
+    case 'array':
+      return [getExampleFromSchema(schema.items)];
+    case 'object': {
+      const output: Record<string, any> = {};
+      for (const [key, value] of Object.entries(schema.properties ?? {})) {
+        output[key] = getExampleFromSchema(value as JsonSchema);
+      }
+      return output;
     }
+    default:
+      return undefined;
   }
+};
 
-  return undefined;
+const buildExampleBody = (operation: OpenApiOperation) => {
+  const json = operation?.requestBody?.content?.['application/json'];
+  if (json?.example !== undefined) return json.example;
+  return getExampleFromSchema(json?.schema);
 };
 
 const buildRequestBody = (operation: OpenApiOperation) => {
   const json = operation?.requestBody?.content?.['application/json'];
-  if (json?.example) {
+  if (json?.schema) {
+    const example = buildExampleBody(operation);
     return {
       mode: 'raw',
-      raw: JSON.stringify(json.example, null, 2),
+      raw: JSON.stringify(example ?? {}, null, 2),
       options: { raw: { language: 'json' } },
     };
   }
 
   const formData = operation?.requestBody?.content?.['multipart/form-data'];
   if (formData?.schema) {
+    const schema = formData.schema as JsonSchema;
     return {
       mode: 'formdata',
-      formdata: Object.entries(formData.schema.properties ?? {}).map(([key, schema]: [string, any]) => ({
+      formdata: Object.entries(schema.properties ?? {}).map(([key, value]: [string, JsonSchema]) => ({
         key,
-        type: schema.format === 'binary' ? 'file' : 'text',
-        value: schema.example ?? '',
+        type: value.format === 'binary' ? 'file' : 'text',
+        value: value.format === 'binary' ? '' : String(getExampleFromSchema(value) ?? ''),
       })),
     };
   }
@@ -51,20 +84,26 @@ const buildRequestBody = (operation: OpenApiOperation) => {
 };
 
 const buildResponseBody = (operation: OpenApiOperation) => {
-  const success = findSuccessResponse(operation);
-  const example = success?.json?.example;
-  if (!example) return undefined;
+  const responses = operation?.responses ?? {};
+  const orderedCodes = ['200', '201', '202', '204', '400', '401', '403', '404', '500'];
+  const responseItems = [];
 
-  return [
-    {
-      name: `${success.statusCode} ${success.response.description ?? 'Success'}`,
-      originalRequest: {},
-      status: success.response.description ?? 'Success',
-      code: Number(success.statusCode),
-      header: [],
-      body: JSON.stringify(example, null, 2),
-    },
-  ];
+  for (const code of orderedCodes) {
+    const response = responses[code];
+    const json = response?.content?.['application/json'];
+    if (json?.example !== undefined) {
+      responseItems.push({
+        name: `${code} ${response.description ?? 'Response'}`,
+        originalRequest: {},
+        status: response.description ?? 'Response',
+        code: Number(code),
+        header: [],
+        body: JSON.stringify(json.example, null, 2),
+      });
+    }
+  }
+
+  return responseItems.length ? responseItems : undefined;
 };
 
 const buildHeaders = (operation: OpenApiOperation) => {
@@ -80,15 +119,65 @@ const buildQuery = (operation: OpenApiOperation) =>
     .filter((parameter: any) => parameter.in === 'query')
     .map((parameter: any) => ({
       key: parameter.name,
-      value: parameter.schema?.example ?? '',
+      value: parameter.schema?.example ?? parameter.schema?.default ?? getExampleFromSchema(parameter.schema) ?? '',
       description: parameter.description ?? '',
     }));
 
-const buildUrl = (path: string, operation: OpenApiOperation) => ({
-  raw: `{{baseUrl}}/api${path}`,
-  host: ['{{baseUrl}}'],
-  path: ['api', ...path.split('/').filter(Boolean)],
-  query: buildQuery(operation),
+const buildPath = (path: string, operation: OpenApiOperation) => {
+  const segments = path
+    .split('/')
+    .filter(Boolean)
+    .map((segment) => {
+      const match = segment.match(/^\{(.+)\}$/);
+      if (!match) return segment;
+
+      const parameterName = match[1];
+      const parameter = (operation?.parameters ?? []).find((item: any) => item.in === 'path' && item.name === parameterName);
+      return parameter?.schema?.example ?? getExampleFromSchema(parameter?.schema) ?? sampleUuid;
+    });
+
+  return {
+    raw: `{{baseUrl}}/api/${segments.join('/')}`,
+    host: ['{{baseUrl}}'],
+    path: ['api', ...segments],
+    query: buildQuery(operation),
+  };
+};
+
+const tokenCaptureScript = `const body = pm.response.json();
+if (body?.data?.accessToken) {
+  pm.collectionVariables.set('accessToken', body.data.accessToken);
+}
+if (body?.data?.refreshToken) {
+  pm.collectionVariables.set('refreshToken', body.data.refreshToken);
+}`;
+
+const buildEventScripts = (path: string, operation: OpenApiOperation) => {
+  if (!['/auth/register', '/auth/login', '/auth/refresh'].includes(path)) {
+    return undefined;
+  }
+
+  return [
+    {
+      listen: 'test',
+      script: {
+        type: 'text/javascript',
+        exec: tokenCaptureScript.split('\n'),
+      },
+    },
+  ];
+};
+
+const isPublicRoute = (path: string) =>
+  ['/auth/register', '/auth/login', '/auth/refresh', '/auth/logout', '/auth/forgot-password', '/auth/reset-password'].includes(path);
+
+const buildRequest = (path: string, method: string, operation: OpenApiOperation) => ({
+  method: method.toUpperCase(),
+  header: buildHeaders(operation),
+  url: buildPath(path, operation),
+  body: buildRequestBody(operation),
+  description: operation.description ?? operation.summary ?? '',
+  auth: isPublicRoute(path) ? undefined : { type: 'bearer', bearer: [{ key: 'token', value: '{{accessToken}}', type: 'string' }] },
 });
 
 const buildItem = ([path, methodsObject]: [string, OpenApiPathItem]) => {
@@ -102,14 +191,9 @@ const buildItem = ([path, methodsObject]: [string, OpenApiPathItem]) => {
 
       return {
         name: operation.summary ?? `${method.toUpperCase()} ${path}`,
-        request: {
-          method: method.toUpperCase(),
-          header: buildHeaders(operation),
-          url: buildUrl(path, operation),
-          body: buildRequestBody(operation),
-          description: operation.description ?? operation.summary ?? '',
-        },
+        request: buildRequest(path, method, operation),
         response: buildResponseBody(operation),
+        event: buildEventScripts(path, operation),
       };
     });
 
@@ -142,8 +226,12 @@ const collection = {
     description: 'Auto-generated Postman collection from the OpenAPI source.',
     schema: 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
   },
+  auth: {
+    type: 'bearer',
+    bearer: [{ key: 'token', value: '{{accessToken}}', type: 'string' }],
+  },
   item: groupByTag(),
-  variable: [{ key: 'baseUrl', value: 'http://localhost:5000' }],
+  variable: collectionVariables,
 };
 
 const main = async () => {

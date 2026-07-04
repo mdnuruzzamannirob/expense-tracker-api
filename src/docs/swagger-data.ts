@@ -29,6 +29,18 @@ const okResponse = <T extends SchemaObject>(description: string, schema?: T, exa
     : undefined,
 });
 
+const apiErrorResponse = (_status: number, message: string) => ({
+  description: message,
+  content: {
+    'application/json': {
+      example: {
+        success: false,
+        message,
+      },
+    },
+  },
+});
+
 export const openApiSpec: OpenApiDocument = {
   openapi: '3.0.0',
   info: {
@@ -707,3 +719,23 @@ export const openApiSpec: OpenApiDocument = {
     },
   },
 };
+
+const standardErrorResponses = {
+  400: apiErrorResponse(400, 'Validation failed'),
+  401: apiErrorResponse(401, 'Authentication token is required'),
+  403: apiErrorResponse(403, 'You do not have permission to access this resource'),
+  404: apiErrorResponse(404, 'Resource not found'),
+  500: apiErrorResponse(500, 'Internal server error'),
+};
+
+for (const pathItem of Object.values(openApiSpec.paths as Record<string, Record<string, Record<string, unknown>> | undefined>)) {
+  if (!pathItem) continue;
+
+  for (const operation of Object.values(pathItem)) {
+    const responses = (operation.responses ?? {}) as Record<string, unknown>;
+    operation.responses = {
+      ...standardErrorResponses,
+      ...responses,
+    };
+  }
+}

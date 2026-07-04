@@ -4,6 +4,16 @@
     "description": "Auto-generated Postman collection from the OpenAPI source.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
   "item": [
     {
       "name": "Auth",
@@ -37,6 +47,15 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nazmul Hasan\",\n  \"email\": \"nazmul@example.com\",\n  \"password\": \"Password123!\",\n  \"currency\": \"BDT\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Register a new user"
               },
               "response": [
@@ -47,6 +66,63 @@
                   "code": 201,
                   "header": [],
                   "body": "{\n  \"message\": \"Registered successfully\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n      \"name\": \"Nazmul Hasan\",\n      \"email\": \"nazmul@example.com\",\n      \"role\": \"USER\",\n      \"currency\": \"BDT\"\n    },\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"refreshToken\": \"eyJhbGciOi...\"\n  }\n}"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "if (body?.data?.accessToken) {",
+                      "  pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                      "}",
+                      "if (body?.data?.refreshToken) {",
+                      "  pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                      "}"
+                    ]
+                  }
                 }
               ]
             }
@@ -81,6 +157,15 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"nazmul@example.com\",\n  \"password\": \"Password123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Login with email and password"
               },
               "response": [
@@ -91,6 +176,63 @@
                   "code": 200,
                   "header": [],
                   "body": "{\n  \"message\": \"Logged in successfully\",\n  \"data\": {\n    \"user\": {\n      \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n      \"name\": \"Nazmul Hasan\",\n      \"email\": \"nazmul@example.com\",\n      \"role\": \"USER\",\n      \"currency\": \"BDT\"\n    },\n    \"accessToken\": \"eyJhbGciOi...\",\n    \"refreshToken\": \"eyJhbGciOi...\"\n  }\n}"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "if (body?.data?.accessToken) {",
+                      "  pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                      "}",
+                      "if (body?.data?.refreshToken) {",
+                      "  pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                      "}"
+                    ]
+                  }
                 }
               ]
             }
@@ -125,8 +267,76 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refreshToken\": \"eyJhbGciOi...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Rotate refresh token"
-              }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "const body = pm.response.json();",
+                      "if (body?.data?.accessToken) {",
+                      "  pm.collectionVariables.set('accessToken', body.data.accessToken);",
+                      "}",
+                      "if (body?.data?.refreshToken) {",
+                      "  pm.collectionVariables.set('refreshToken', body.data.refreshToken);",
+                      "}"
+                    ]
+                  }
+                }
+              ]
             }
           ]
         },
@@ -159,8 +369,59 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refreshToken\": \"eyJhbGciOi...\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Revoke refresh token"
-              }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -193,8 +454,59 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"nazmul@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Start password reset flow"
-              }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -227,8 +539,59 @@
                   ],
                   "query": []
                 },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"8c5d7f1c...\",\n  \"password\": \"NewPassword123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "description": "Reset password using token"
-              }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -262,7 +625,17 @@
                   ],
                   "query": []
                 },
-                "description": "Get current profile"
+                "description": "Get current profile",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": [
                 {
@@ -272,6 +645,46 @@
                   "code": 200,
                   "header": [],
                   "body": "{\n  \"message\": \"Profile fetched\",\n  \"data\": {\n    \"id\": \"f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a\",\n    \"name\": \"Nazmul Hasan\",\n    \"email\": \"nazmul@example.com\",\n    \"role\": \"USER\",\n    \"currency\": \"BDT\",\n    \"isActive\": true\n  }\n}"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
                 }
               ]
             },
@@ -301,8 +714,69 @@
                   ],
                   "query": []
                 },
-                "description": "Update current profile"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nazmul Hasan\",\n  \"currency\": \"USD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Update current profile",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -336,8 +810,69 @@
                   ],
                   "query": []
                 },
-                "description": "Change password"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"currentPassword\": \"Password123!\",\n  \"newPassword\": \"NewPassword123!\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Change password",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -370,7 +905,17 @@
                   ],
                   "query": []
                 },
-                "description": "List categories"
+                "description": "List categories",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": [
                 {
@@ -380,6 +925,46 @@
                   "code": 200,
                   "header": [],
                   "body": "[\n  {\n    \"id\": \"...\",\n    \"name\": \"Food\",\n    \"type\": \"EXPENSE\",\n    \"icon\": \"utensils\",\n    \"color\": \"#f97316\"\n  }\n]"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
                 }
               ]
             },
@@ -408,8 +993,69 @@
                   ],
                   "query": []
                 },
-                "description": "Create category"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Groceries\",\n  \"type\": \"INCOME\",\n  \"icon\": \"shopping-bag\",\n  \"color\": \"#22c55e\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Create category",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -427,19 +1073,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/categories/{id}",
+                  "raw": "{{baseUrl}}/api/categories/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "categories",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Update category"
-              }
+                "description": "Update category",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             },
             {
               "name": "Delete category",
@@ -452,19 +1150,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/categories/{id}",
+                  "raw": "{{baseUrl}}/api/categories/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "categories",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Delete category"
-              }
+                "description": "Delete category",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -498,42 +1248,52 @@
                   "query": [
                     {
                       "key": "type",
-                      "value": "",
+                      "value": "INCOME",
                       "description": ""
                     },
                     {
                       "key": "category",
-                      "value": "",
+                      "value": "00000000-0000-0000-0000-000000000001",
                       "description": ""
                     },
                     {
                       "key": "from",
-                      "value": "",
+                      "value": "2026-07-04T09:04:47.832Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "",
+                      "value": "2026-07-04T09:04:47.832Z",
                       "description": ""
                     },
                     {
                       "key": "tag",
-                      "value": "",
+                      "value": "string",
                       "description": ""
                     },
                     {
                       "key": "page",
-                      "value": "",
+                      "value": 1,
                       "description": ""
                     },
                     {
                       "key": "limit",
-                      "value": "",
+                      "value": 20,
                       "description": ""
                     }
                   ]
                 },
-                "description": "List transactions"
+                "description": "List transactions",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": [
                 {
@@ -543,6 +1303,46 @@
                   "code": 200,
                   "header": [],
                   "body": "[\n  {\n    \"id\": \"...\",\n    \"amount\": 1200,\n    \"type\": \"EXPENSE\",\n    \"note\": \"Groceries\",\n    \"date\": \"2026-07-04T10:00:00.000Z\",\n    \"tags\": [\n      \"food\",\n      \"monthly\"\n    ],\n    \"categoryId\": \"...\",\n    \"userId\": \"...\"\n  }\n]"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
                 }
               ]
             },
@@ -571,8 +1371,69 @@
                   ],
                   "query": []
                 },
-                "description": "Create transaction"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-04T09:04:47.832Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Create transaction",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -611,8 +1472,60 @@
                     }
                   ]
                 },
-                "description": "Import transactions from CSV"
-              }
+                "description": "Import transactions from CSV",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -630,19 +1543,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/transactions/{id}",
+                  "raw": "{{baseUrl}}/api/transactions/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "transactions",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Update transaction"
-              }
+                "description": "Update transaction",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             },
             {
               "name": "Delete transaction",
@@ -655,19 +1620,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/transactions/{id}",
+                  "raw": "{{baseUrl}}/api/transactions/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "transactions",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Delete transaction"
-              }
+                "description": "Delete transaction",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -701,18 +1718,70 @@
                   "query": [
                     {
                       "key": "month",
-                      "value": "",
+                      "value": 1,
                       "description": ""
                     },
                     {
                       "key": "year",
-                      "value": "",
+                      "value": 1,
                       "description": ""
                     }
                   ]
                 },
-                "description": "List budgets"
-              }
+                "description": "List budgets",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             },
             {
               "name": "Create budget",
@@ -739,8 +1808,69 @@
                   ],
                   "query": []
                 },
-                "description": "Create budget"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"limit\": 10000,\n  \"alertThreshold\": 80,\n  \"month\": 7,\n  \"year\": 2026,\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Create budget",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -769,8 +1899,60 @@
                   ],
                   "query": []
                 },
-                "description": "Budget alerts"
-              }
+                "description": "Budget alerts",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -788,19 +1970,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/budgets/{id}",
+                  "raw": "{{baseUrl}}/api/budgets/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "budgets",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Update budget"
-              }
+                "description": "Update budget",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -833,8 +2067,60 @@
                   ],
                   "query": []
                 },
-                "description": "List savings goals"
-              }
+                "description": "List savings goals",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             },
             {
               "name": "Create savings goal",
@@ -861,8 +2147,69 @@
                   ],
                   "query": []
                 },
-                "description": "Create savings goal"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"New Laptop\",\n  \"targetAmount\": 120000,\n  \"deadline\": \"2026-07-04T09:04:47.832Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Create savings goal",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -884,20 +2231,81 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/savings-goals/{id}/contribute",
+                  "raw": "{{baseUrl}}/api/savings-goals/00000000-0000-0000-0000-000000000001/contribute",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "savings-goals",
-                    "{id}",
+                    "00000000-0000-0000-0000-000000000001",
                     "contribute"
                   ],
                   "query": []
                 },
-                "description": "Add contribution"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 5000\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Add contribution",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -915,19 +2323,71 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/savings-goals/{id}",
+                  "raw": "{{baseUrl}}/api/savings-goals/00000000-0000-0000-0000-000000000001",
                   "host": [
                     "{{baseUrl}}"
                   ],
                   "path": [
                     "api",
                     "savings-goals",
-                    "{id}"
+                    "00000000-0000-0000-0000-000000000001"
                   ],
                   "query": []
                 },
-                "description": "Delete savings goal"
-              }
+                "description": "Delete savings goal",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -972,7 +2432,17 @@
                     }
                   ]
                 },
-                "description": "Monthly report"
+                "description": "Monthly report",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
               },
               "response": [
                 {
@@ -982,6 +2452,46 @@
                   "code": 200,
                   "header": [],
                   "body": "{\n  \"message\": \"Monthly report fetched\",\n  \"data\": {\n    \"totalIncome\": 50000,\n    \"totalExpense\": 24000,\n    \"netSavings\": 26000\n  }\n}"
+                },
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
                 }
               ]
             }
@@ -1018,8 +2528,60 @@
                     }
                   ]
                 },
-                "description": "Yearly report"
-              }
+                "description": "Yearly report",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -1059,8 +2621,60 @@
                     }
                   ]
                 },
-                "description": "Category breakdown"
-              }
+                "description": "Category breakdown",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -1090,18 +2704,70 @@
                   "query": [
                     {
                       "key": "from",
-                      "value": "",
+                      "value": "2026-07-04T09:04:47.832Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "",
+                      "value": "2026-07-04T09:04:47.832Z",
                       "description": ""
                     }
                   ]
                 },
-                "description": "Income vs expense trend"
-              }
+                "description": "Income vs expense trend",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -1131,23 +2797,75 @@
                   "query": [
                     {
                       "key": "type",
-                      "value": "",
+                      "value": "pdf",
                       "description": ""
                     },
                     {
                       "key": "month",
-                      "value": "",
+                      "value": 1,
                       "description": ""
                     },
                     {
                       "key": "year",
-                      "value": "",
+                      "value": 1,
                       "description": ""
                     }
                   ]
                 },
-                "description": "Export report"
-              }
+                "description": "Export report",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -1181,8 +2899,60 @@
                   ],
                   "query": []
                 },
-                "description": "List all users"
-              }
+                "description": "List all users",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -1204,7 +2974,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{baseUrl}}/api/admin/users/{id}/status",
+                  "raw": "{{baseUrl}}/api/admin/users/00000000-0000-0000-0000-000000000001/status",
                   "host": [
                     "{{baseUrl}}"
                   ],
@@ -1212,13 +2982,74 @@
                     "api",
                     "admin",
                     "users",
-                    "{id}",
+                    "00000000-0000-0000-0000-000000000001",
                     "status"
                   ],
                   "query": []
                 },
-                "description": "Activate or deactivate user"
-              }
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"isActive\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "description": "Activate or deactivate user",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         },
@@ -1247,8 +3078,60 @@
                   ],
                   "query": []
                 },
-                "description": "Platform statistics"
-              }
+                "description": "Platform statistics",
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{accessToken}}",
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "400 Validation failed",
+                  "originalRequest": {},
+                  "status": "Validation failed",
+                  "code": 400,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Validation failed\"\n}"
+                },
+                {
+                  "name": "401 Authentication token is required",
+                  "originalRequest": {},
+                  "status": "Authentication token is required",
+                  "code": 401,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Authentication token is required\"\n}"
+                },
+                {
+                  "name": "403 You do not have permission to access this resource",
+                  "originalRequest": {},
+                  "status": "You do not have permission to access this resource",
+                  "code": 403,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"You do not have permission to access this resource\"\n}"
+                },
+                {
+                  "name": "404 Resource not found",
+                  "originalRequest": {},
+                  "status": "Resource not found",
+                  "code": 404,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Resource not found\"\n}"
+                },
+                {
+                  "name": "500 Internal server error",
+                  "originalRequest": {},
+                  "status": "Internal server error",
+                  "code": 500,
+                  "header": [],
+                  "body": "{\n  \"success\": false,\n  \"message\": \"Internal server error\"\n}"
+                }
+              ]
             }
           ]
         }
@@ -1259,6 +3142,14 @@
     {
       "key": "baseUrl",
       "value": "http://localhost:5000"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
     }
   ]
 }

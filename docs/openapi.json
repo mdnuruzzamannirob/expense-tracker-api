@@ -360,6 +360,61 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -420,6 +475,61 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -453,6 +563,61 @@
         "responses": {
           "200": {
             "description": "Token refreshed"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -486,6 +651,61 @@
         "responses": {
           "200": {
             "description": "Logged out successfully"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -520,6 +740,61 @@
         "responses": {
           "200": {
             "description": "Reset mail sent if account exists"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -559,6 +834,61 @@
         "responses": {
           "200": {
             "description": "Password reset successfully"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -587,6 +917,61 @@
                     "currency": "BDT",
                     "isActive": true
                   }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
                 }
               }
             }
@@ -621,6 +1006,61 @@
         "responses": {
           "200": {
             "description": "Profile updated"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -659,6 +1099,61 @@
         "responses": {
           "200": {
             "description": "Password changed"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -689,6 +1184,61 @@
                     "color": "#f97316"
                   }
                 ]
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
               }
             }
           }
@@ -737,6 +1287,61 @@
         "responses": {
           "201": {
             "description": "Category created"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -761,6 +1366,61 @@
         "responses": {
           "200": {
             "description": "Category updated"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       },
@@ -783,6 +1443,61 @@
         "responses": {
           "200": {
             "description": "Category deleted"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -881,6 +1596,61 @@
                 ]
               }
             }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       },
@@ -959,6 +1729,61 @@
         "responses": {
           "201": {
             "description": "Transaction created"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -991,6 +1816,61 @@
         "responses": {
           "201": {
             "description": "Transactions imported"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1015,6 +1895,61 @@
         "responses": {
           "200": {
             "description": "Transaction updated"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       },
@@ -1037,6 +1972,61 @@
         "responses": {
           "200": {
             "description": "Transaction deleted"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1066,6 +2056,61 @@
         "responses": {
           "200": {
             "description": "Budgets fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       },
@@ -1115,6 +2160,61 @@
         "responses": {
           "201": {
             "description": "Budget created"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1128,6 +2228,61 @@
         "responses": {
           "200": {
             "description": "Budget alerts fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1152,6 +2307,61 @@
         "responses": {
           "200": {
             "description": "Budget updated"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1165,6 +2375,61 @@
         "responses": {
           "200": {
             "description": "Savings goals fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       },
@@ -1205,6 +2470,61 @@
         "responses": {
           "201": {
             "description": "Savings goal created"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1248,6 +2568,61 @@
         "responses": {
           "200": {
             "description": "Contribution added"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1272,6 +2647,61 @@
         "responses": {
           "200": {
             "description": "Savings goal deleted"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1320,6 +2750,61 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1344,6 +2829,61 @@
         "responses": {
           "200": {
             "description": "Yearly report fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1377,6 +2917,61 @@
         "responses": {
           "200": {
             "description": "Category breakdown fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1410,6 +3005,61 @@
         "responses": {
           "200": {
             "description": "Trend fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1453,6 +3103,61 @@
         "responses": {
           "200": {
             "description": "Report exported"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1466,6 +3171,61 @@
         "responses": {
           "200": {
             "description": "Users fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1509,6 +3269,61 @@
         "responses": {
           "200": {
             "description": "User status updated"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }
@@ -1522,6 +3337,61 @@
         "responses": {
           "200": {
             "description": "Platform stats fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication token is required",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Authentication token is required"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "You do not have permission to access this resource"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Resource not found"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Internal server error"
+                }
+              }
+            }
           }
         }
       }

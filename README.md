@@ -44,11 +44,15 @@ pnpm prisma:generate  # refresh Prisma Client after schema changes
 pnpm prisma:migrate   # apply database migrations
 pnpm prisma:studio    # inspect the database in Prisma Studio
 pnpm prisma:seed      # seed starter data
+pnpm swagger:generate # write docs/openapi.json from the source spec
+pnpm postman:generate # write docs/postman-collection.json from the source spec
+pnpm docs:generate    # refresh both Swagger and Postman outputs
 ```
 
 ## API Surface
 
 Auth
+
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/refresh`
@@ -57,17 +61,20 @@ Auth
 - `POST /api/auth/reset-password`
 
 Users
+
 - `GET /api/users/me`
 - `PATCH /api/users/me`
 - `PATCH /api/users/me/password`
 
 Categories
+
 - `GET /api/categories`
 - `POST /api/categories`
 - `PATCH /api/categories/:id`
 - `DELETE /api/categories/:id`
 
 Transactions
+
 - `GET /api/transactions`
 - `POST /api/transactions`
 - `POST /api/transactions/import`
@@ -75,18 +82,21 @@ Transactions
 - `DELETE /api/transactions/:id`
 
 Budgets
+
 - `POST /api/budgets`
 - `GET /api/budgets`
 - `GET /api/budgets/alerts`
 - `PATCH /api/budgets/:id`
 
 Savings Goals
+
 - `POST /api/savings-goals`
 - `GET /api/savings-goals`
 - `PATCH /api/savings-goals/:id/contribute`
 - `DELETE /api/savings-goals/:id`
 
 Reports
+
 - `GET /api/reports/monthly`
 - `GET /api/reports/yearly`
 - `GET /api/reports/category-breakdown`
@@ -94,6 +104,7 @@ Reports
 - `GET /api/reports/export`
 
 Admin
+
 - `GET /api/admin/users`
 - `PATCH /api/admin/users/:id/status`
 - `GET /api/admin/stats`
@@ -121,3 +132,4 @@ value is missing or invalid. See `.env.example` for the full list.
 - Prisma Client is generated into `src/generated/prisma`.
 - Password reset tokens are persisted in the database and expire after one hour.
 - Report responses are cached in Redis and invalidated on transaction changes.
+- Swagger docs are generated from `src/docs/swagger-data.ts`; run `pnpm docs:generate` to refresh `docs/openapi.json` and `docs/postman-collection.json`.

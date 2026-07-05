@@ -42,7 +42,7 @@ pnpm run lint         # lint src
 pnpm test             # run Jest with coverage
 pnpm prisma:generate  # refresh Prisma Client after schema changes
 pnpm prisma:migrate   # apply database migrations
-pnpm prisma:studio    # inspect the database in Prisma Studio
+pnpm prisma:studio    # inspect the database in Prisma Studio without auto-opening a browser
 pnpm prisma:seed      # seed starter data
 pnpm swagger:generate # write docs/openapi.json from the source spec
 pnpm postman:generate # write docs/postman-collection.json from the source spec

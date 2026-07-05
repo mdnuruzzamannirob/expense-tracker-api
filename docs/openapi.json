@@ -120,7 +120,8 @@
             "enum": [
               "INCOME",
               "EXPENSE"
-            ]
+            ],
+            "description": "The type of the category."
           },
           "icon": {
             "type": "string",
@@ -151,7 +152,8 @@
             "enum": [
               "INCOME",
               "EXPENSE"
-            ]
+            ],
+            "description": "The type of the transaction."
           },
           "note": {
             "type": "string",
@@ -181,7 +183,8 @@
               "WEEKLY",
               "MONTHLY"
             ],
-            "nullable": true
+            "nullable": true,
+            "description": "The recurring rule for the transaction."
           },
           "categoryId": {
             "type": "string",
@@ -1038,6 +1041,37 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Groceries"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "INCOME",
+                      "EXPENSE"
+                    ]
+                  },
+                  "icon": {
+                    "type": "string",
+                    "example": "shopping-bag"
+                  },
+                  "color": {
+                    "type": "string",
+                    "example": "#22c55e"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Category updated"

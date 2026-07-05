@@ -1,6 +1,6 @@
 import type { RequestHandler } from 'express';
-import * as service from './service.js';
 import { sendResponse } from '../../utils/response.js';
+import * as service from './service.js';
 
 export const create: RequestHandler = async (req, res, next) => {
   try {

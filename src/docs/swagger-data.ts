@@ -108,7 +108,11 @@ export const openApiSpec: OpenApiDocument = {
         properties: {
           id: { type: 'string', format: 'uuid' },
           name: { type: 'string' },
-          type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
+          type: {
+            type: 'string',
+            enum: ['INCOME', 'EXPENSE'],
+            description: 'The type of the category.',
+          },
           icon: { type: 'string', nullable: true },
           color: { type: 'string', nullable: true },
           userId: { type: 'string', format: 'uuid' },
@@ -119,7 +123,11 @@ export const openApiSpec: OpenApiDocument = {
         properties: {
           id: { type: 'string', format: 'uuid' },
           amount: { type: 'number' },
-          type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
+          type: {
+            type: 'string',
+            enum: ['INCOME', 'EXPENSE'],
+            description: 'The type of the transaction.',
+          },
           note: { type: 'string', nullable: true },
           date: { type: 'string', format: 'date-time' },
           tags: { type: 'array', items: { type: 'string' } },
@@ -129,6 +137,7 @@ export const openApiSpec: OpenApiDocument = {
             type: 'string',
             enum: ['DAILY', 'WEEKLY', 'MONTHLY'],
             nullable: true,
+            description: 'The recurring rule for the transaction.',
           },
           categoryId: { type: 'string', format: 'uuid' },
           userId: { type: 'string', format: 'uuid' },
@@ -492,6 +501,22 @@ export const openApiSpec: OpenApiDocument = {
             schema: { type: 'string', format: 'uuid' },
           },
         ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  name: { type: 'string', example: 'Groceries' },
+                  type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
+                  icon: { type: 'string', example: 'shopping-bag' },
+                  color: { type: 'string', example: '#22c55e' },
+                },
+              },
+            },
+          },
+        },
         responses: { '200': okResponse('Category updated') },
       },
       delete: {

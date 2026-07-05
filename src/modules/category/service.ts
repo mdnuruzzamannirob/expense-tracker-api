@@ -6,13 +6,23 @@ export const list = async (userId: string) =>
 
 export const create = async (
   userId: string,
-  data: { name: string; type: 'INCOME' | 'EXPENSE'; icon?: string; color?: string },
+  data: {
+    name: string;
+    type: 'INCOME' | 'EXPENSE';
+    icon?: string;
+    color?: string;
+  },
 ) => prisma.category.create({ data: { ...data, userId } });
 
 export const update = async (
   userId: string,
   id: string,
-  data: { name?: string; type?: 'INCOME' | 'EXPENSE'; icon?: string; color?: string },
+  data: {
+    name?: string;
+    type?: 'INCOME' | 'EXPENSE';
+    icon?: string;
+    color?: string;
+  },
 ) => {
   await ensureOwned(userId, id);
   return prisma.category.update({ where: { id }, data });

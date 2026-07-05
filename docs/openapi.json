@@ -176,6 +176,11 @@
           },
           "recurringRule": {
             "type": "string",
+            "enum": [
+              "DAILY",
+              "WEEKLY",
+              "MONTHLY"
+            ],
             "nullable": true
           },
           "categoryId": {
@@ -1214,6 +1219,31 @@
               "type": "integer",
               "default": 20
             }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "date",
+                "amount",
+                "createdAt"
+              ],
+              "default": "date"
+            }
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "default": "desc"
+            }
           }
         ],
         "responses": {
@@ -1474,6 +1504,67 @@
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number",
+                    "example": 1250
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "INCOME",
+                      "EXPENSE"
+                    ]
+                  },
+                  "categoryId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "note": {
+                    "type": "string",
+                    "example": "Salary for July"
+                  },
+                  "date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "example": [
+                      "salary",
+                      "monthly"
+                    ]
+                  },
+                  "receiptUrl": {
+                    "type": "string",
+                    "example": "https://res.cloudinary.com/.../receipt.png"
+                  },
+                  "isRecurring": {
+                    "type": "boolean",
+                    "example": false
+                  },
+                  "recurringRule": {
+                    "type": "string",
+                    "enum": [
+                      "DAILY",
+                      "WEEKLY",
+                      "MONTHLY"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Transaction updated"

@@ -1,6 +1,6 @@
-import type { NextFunction, Request, Response } from "express";
-import type { ZodTypeAny } from "zod";
-import { AppError } from "../utils/response.js";
+import type { NextFunction, Request, Response } from 'express';
+import type { ZodTypeAny } from 'zod';
+import { AppError } from '../utils/response.js';
 
 export const validate =
   (schema: ZodTypeAny) =>
@@ -12,7 +12,7 @@ export const validate =
     });
 
     if (!parsed.success) {
-      return next(new AppError(400, "Validation failed"));
+      return next(new AppError(400, 'Validation failed'));
     }
     next();
   };

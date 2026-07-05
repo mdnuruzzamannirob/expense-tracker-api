@@ -8,7 +8,11 @@ const router = Router();
 
 router.use(authenticate, authorize('ADMIN'));
 router.get('/users', controller.users);
-router.patch('/users/:id/status', validate(userStatusSchema), controller.updateStatus);
+router.patch(
+  '/users/:id/status',
+  validate(userStatusSchema),
+  controller.updateStatus,
+);
 router.get('/stats', controller.stats);
 
 export default router;

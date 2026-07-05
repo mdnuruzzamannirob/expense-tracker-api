@@ -2,7 +2,11 @@ import { Router } from 'express';
 import { authenticate } from '../../middlewares/auth.middleware.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 import * as controller from './controller.js';
-import { createCategorySchema, idParamSchema, updateCategorySchema } from './validation.js';
+import {
+  createCategorySchema,
+  idParamSchema,
+  updateCategorySchema,
+} from './validation.js';
 
 const router = Router();
 

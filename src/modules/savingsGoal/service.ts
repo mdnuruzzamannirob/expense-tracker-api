@@ -1,9 +1,16 @@
 import { prisma } from '../../config/db.js';
 import { AppError } from '../../utils/response.js';
 
-const withProgress = <T extends { currentAmount: number; targetAmount: number }>(goal: T) => ({
+const withProgress = <
+  T extends { currentAmount: number; targetAmount: number },
+>(
+  goal: T,
+) => ({
   ...goal,
-  progressPercent: goal.targetAmount > 0 ? Math.min((goal.currentAmount / goal.targetAmount) * 100, 100) : 0,
+  progressPercent:
+    goal.targetAmount > 0
+      ? Math.min((goal.currentAmount / goal.targetAmount) * 100, 100)
+      : 0,
 });
 
 const ensureOwned = async (userId: string, id: string) => {
@@ -12,7 +19,10 @@ const ensureOwned = async (userId: string, id: string) => {
   return goal;
 };
 
-export const create = async (userId: string, data: { title: string; targetAmount: number; deadline: string }) =>
+export const create = async (
+  userId: string,
+  data: { title: string; targetAmount: number; deadline: string },
+) =>
   withProgress(
     await prisma.savingsGoal.create({
       data: { ...data, deadline: new Date(data.deadline), userId },
@@ -20,11 +30,18 @@ export const create = async (userId: string, data: { title: string; targetAmount
   );
 
 export const list = async (userId: string) => {
-  const goals = await prisma.savingsGoal.findMany({ where: { userId }, orderBy: { deadline: 'asc' } });
+  const goals = await prisma.savingsGoal.findMany({
+    where: { userId },
+    orderBy: { deadline: 'asc' },
+  });
   return goals.map(withProgress);
 };
 
-export const contribute = async (userId: string, id: string, amount: number) => {
+export const contribute = async (
+  userId: string,
+  id: string,
+  amount: number,
+) => {
   await ensureOwned(userId, id);
   return withProgress(
     await prisma.savingsGoal.update({

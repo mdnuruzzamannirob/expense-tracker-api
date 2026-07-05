@@ -40,7 +40,7 @@ export const changePassword = async (
 ) => {
   const user = await prisma.user.findUniqueOrThrow({ where: { id: userId } });
   const matched = await bcrypt.compare(currentPassword, user.password);
-  if (!matched) throw new AppError(400, 'Current password is incorrect');
+  if (!matched) throw new AppError(401, 'Current password is incorrect');
 
   await prisma.user.update({
     where: { id: userId },

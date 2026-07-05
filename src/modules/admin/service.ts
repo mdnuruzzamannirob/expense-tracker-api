@@ -79,9 +79,12 @@ export const stats = async () => {
 
   return {
     totalUsers,
+    usersCount: totalUsers,
     activeUsers,
     inactiveUsers: totalUsers - activeUsers,
     totalTransactions: transactions,
+    transactionsCount: transactions,
     totalTransactionVolume: volume._sum.amount ?? 0,
+    totalVolume: volume._sum.amount ?? 0,
   };
 };

@@ -10,7 +10,8 @@ export const listUsersSchema = z
         page: z.coerce.number().int().positive().default(1),
         limit: z.coerce.number().int().positive().max(100).default(20),
       })
-      .strict(),
+      .strict()
+      .default({ page: 1, limit: 20 }),
   })
   .passthrough();
 

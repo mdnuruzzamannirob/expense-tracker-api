@@ -56,7 +56,10 @@ const issueTokens = async (user: {
 }) => {
   const payload = tokenPayload(user);
   const accessToken = signAccessToken(payload);
-  const refreshToken = signRefreshToken(payload);
+  const refreshToken = signRefreshToken({
+    ...payload,
+    jti: crypto.randomUUID(),
+  });
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
   await prisma.refreshToken.create({

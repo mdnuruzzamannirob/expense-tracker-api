@@ -127,6 +127,9 @@ Services:
 The app validates environment variables at startup and exits fast if any required
 value is missing or invalid. See `.env.example` for the full list.
 
+For tests, copy `.env.test.example` to `.env.test` and adjust the test database
+and Redis values for your local machine or CI environment.
+
 ## Notes
 
 - Prisma Client is generated into `src/generated/prisma`.

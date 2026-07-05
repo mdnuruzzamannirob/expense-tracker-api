@@ -1,15 +1,13 @@
+import { config as loadEnv } from 'dotenv';
 import { jest } from '@jest/globals';
 import type { NextFunction, Request, Response } from 'express';
 
+loadEnv({ path: '.env.test' });
+loadEnv({ path: '.env', override: false });
+
 process.env.NODE_ENV = 'test';
-process.env.DATABASE_URL =
-  'postgresql://expense_admin:devmd123@localhost:5432/expense_tracker_test?schema=public';
-process.env.REDIS_URL = 'redis://localhost:6379';
-process.env.JWT_ACCESS_SECRET =
-  'test_access_secret_long_enough_for_security';
-process.env.JWT_REFRESH_SECRET =
-  'test_refresh_secret_long_enough_for_security';
-process.env.PORT = '5001';
+process.env.PORT ??= '5001';
+process.env.REDIS_URL ??= 'redis://localhost:6379';
 
 jest.mock('../src/middlewares/rateLimiter.js', () => ({
   apiRateLimiter: (_req: Request, _res: Response, next: NextFunction) =>

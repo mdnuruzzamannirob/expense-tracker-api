@@ -10,14 +10,16 @@ const getExampleFromSchema = (schema?: SchemaObject): unknown => {
   if (!schema) return undefined;
   if (schema.example !== undefined) return schema.example;
   if (schema.default !== undefined) return schema.default;
-  if (Array.isArray(schema.enum) && schema.enum.length > 0) return schema.enum[0];
+  if (Array.isArray(schema.enum) && schema.enum.length > 0)
+    return schema.enum[0];
 
   switch (schema.type) {
     case 'string':
       if (schema.format === 'uuid') return sampleUuid;
       if (schema.format === 'email') return 'user@example.com';
       if (schema.format === 'date-time') return new Date().toISOString();
-      if (schema.format === 'date') return new Date().toISOString().slice(0, 10);
+      if (schema.format === 'date')
+        return new Date().toISOString().slice(0, 10);
       return 'string';
     case 'number':
     case 'integer':
@@ -49,12 +51,18 @@ const enrichSchema = (schema?: SchemaObject): void => {
   }
 
   if (schema.type === 'object' && schema.properties) {
-    for (const value of Object.values(schema.properties as Record<string, SchemaObject>)) {
+    for (const value of Object.values(
+      schema.properties as Record<string, SchemaObject>,
+    )) {
       enrichSchema(value);
     }
   }
 
-  if (schema.type === 'array' && schema.items && typeof schema.items === 'object') {
+  if (
+    schema.type === 'array' &&
+    schema.items &&
+    typeof schema.items === 'object'
+  ) {
     enrichSchema(schema.items as SchemaObject);
   }
 };
@@ -65,7 +73,9 @@ const enrichParameter = (parameter?: OpenApiParameter): void => {
   enrichSchema(parameter.schema as SchemaObject);
 
   if (Array.isArray((parameter.schema as SchemaObject).enum)) {
-    const values = (parameter.schema as SchemaObject).enum as Array<string | number>;
+    const values = (parameter.schema as SchemaObject).enum as Array<
+      string | number
+    >;
     const allowedValues = `Allowed values: ${values.join(', ')}`;
     parameter.description = parameter.description
       ? `${parameter.description} ${allowedValues}`
@@ -80,9 +90,14 @@ const enrichOperation = (operation?: OpenApiOperation): void => {
     enrichParameter(parameter);
   }
 
-  const requestBodies = (operation.requestBody as { content?: Record<string, { schema?: SchemaObject }> } | undefined)?.content;
+  const requestBodies = (
+    operation.requestBody as
+      { content?: Record<string, { schema?: SchemaObject }> } | undefined
+  )?.content;
   if (requestBodies) {
-    for (const body of Object.values(requestBodies as Record<string, { schema?: SchemaObject } | undefined>)) {
+    for (const body of Object.values(
+      requestBodies as Record<string, { schema?: SchemaObject } | undefined>,
+    )) {
       if (body?.schema) enrichSchema(body.schema);
     }
   }
@@ -140,6 +155,11 @@ const openApiSpec: OpenApiDocument = {
     title: 'Expense Tracker API',
     version: '1.0.0',
     description: 'REST API for personal finance management.',
+    contact: {
+      name: 'Md. Nuruzzaman',
+      url: 'https://www.linkedin.com/in/mdnuruzzamannirob4/',
+      email: 'dev.mdnuruzzaman@gmail.com',
+    },
   },
   servers: [{ url: '/api' }],
   tags: [
@@ -273,11 +293,11 @@ const openApiSpec: OpenApiDocument = {
                 type: 'object',
                 required: ['name', 'email', 'password'],
                 properties: {
-                  name: { type: 'string', example: 'Nazmul Hasan' },
+                  name: { type: 'string', example: 'Md. Nuruzzaman' },
                   email: {
                     type: 'string',
                     format: 'email',
-                    example: 'nazmul@example.com',
+                    example: 'dev.mdnuruzzaman@gmail.com',
                   },
                   password: {
                     type: 'string',
@@ -299,8 +319,8 @@ const openApiSpec: OpenApiDocument = {
               data: {
                 user: {
                   id: 'f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a',
-                  name: 'Nazmul Hasan',
-                  email: 'nazmul@example.com',
+                  name: 'Md. Nuruzzaman',
+                  email: 'dev.mdnuruzzaman@gmail.com',
                   role: 'USER',
                   currency: 'BDT',
                 },
@@ -328,7 +348,7 @@ const openApiSpec: OpenApiDocument = {
                   email: {
                     type: 'string',
                     format: 'email',
-                    example: 'nazmul@example.com',
+                    example: 'dev.mdnuruzzaman@gmail.com',
                   },
                   password: { type: 'string', example: 'Password123!' },
                 },
@@ -345,8 +365,8 @@ const openApiSpec: OpenApiDocument = {
               data: {
                 user: {
                   id: 'f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a',
-                  name: 'Nazmul Hasan',
-                  email: 'nazmul@example.com',
+                  name: 'Md. Nuruzzaman',
+                  email: 'dev.mdnuruzzaman@gmail.com',
                   role: 'USER',
                   currency: 'BDT',
                 },
@@ -418,7 +438,7 @@ const openApiSpec: OpenApiDocument = {
                   email: {
                     type: 'string',
                     format: 'email',
-                    example: 'nazmul@example.com',
+                    example: 'dev.mdnuruzzaman@gmail.com',
                   },
                 },
               },
@@ -467,8 +487,8 @@ const openApiSpec: OpenApiDocument = {
               message: 'Profile fetched',
               data: {
                 id: 'f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a',
-                name: 'Nazmul Hasan',
-                email: 'nazmul@example.com',
+                name: 'Md. Nuruzzaman',
+                email: 'dev.mdnuruzzaman@gmail.com',
                 role: 'USER',
                 currency: 'BDT',
                 isActive: true,
@@ -487,7 +507,7 @@ const openApiSpec: OpenApiDocument = {
               schema: {
                 type: 'object',
                 properties: {
-                  name: { type: 'string', example: 'Nazmul Hasan' },
+                  name: { type: 'string', example: 'Md. Nuruzzaman' },
                   currency: { type: 'string', example: 'USD' },
                 },
               },
@@ -828,7 +848,11 @@ const openApiSpec: OpenApiDocument = {
         parameters: [
           { name: 'month', in: 'query', schema: { type: 'integer' } },
           { name: 'year', in: 'query', schema: { type: 'integer' } },
-          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'page',
+            in: 'query',
+            schema: { type: 'integer', default: 1 },
+          },
           {
             name: 'limit',
             in: 'query',
@@ -906,7 +930,11 @@ const openApiSpec: OpenApiDocument = {
         summary: 'List savings goals',
         parameters: [
           { name: 'search', in: 'query', schema: { type: 'string' } },
-          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'page',
+            in: 'query',
+            schema: { type: 'integer', default: 1 },
+          },
           {
             name: 'limit',
             in: 'query',
@@ -1112,7 +1140,11 @@ const openApiSpec: OpenApiDocument = {
             },
           },
           { name: 'isActive', in: 'query', schema: { type: 'boolean' } },
-          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'page',
+            in: 'query',
+            schema: { type: 'integer', default: 1 },
+          },
           {
             name: 'limit',
             in: 'query',
@@ -1159,7 +1191,12 @@ const openApiSpec: OpenApiDocument = {
   },
 };
 
-for (const pathItem of Object.values(openApiSpec.paths as Record<string, Record<string, OpenApiOperation> | undefined>)) {
+for (const pathItem of Object.values(
+  openApiSpec.paths as Record<
+    string,
+    Record<string, OpenApiOperation> | undefined
+  >,
+)) {
   if (!pathItem) continue;
 
   for (const operation of Object.values(pathItem)) {

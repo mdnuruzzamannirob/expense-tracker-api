@@ -3,7 +3,12 @@
   "info": {
     "title": "Expense Tracker API",
     "version": "1.0.0",
-    "description": "REST API for personal finance management."
+    "description": "REST API for personal finance management.",
+    "contact": {
+      "name": "Md. Nuruzzaman",
+      "url": "https://www.linkedin.com/in/mdnuruzzamannirob4/",
+      "email": "dev.mdnuruzzaman@gmail.com"
+    }
   },
   "servers": [
     {
@@ -320,12 +325,12 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "example": "Nazmul Hasan"
+                    "example": "Md. Nuruzzaman"
                   },
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "example": "nazmul@example.com"
+                    "example": "dev.mdnuruzzaman@gmail.com"
                   },
                   "password": {
                     "type": "string",
@@ -338,8 +343,8 @@
                   }
                 },
                 "example": {
-                  "name": "Nazmul Hasan",
-                  "email": "nazmul@example.com",
+                  "name": "Md. Nuruzzaman",
+                  "email": "dev.mdnuruzzaman@gmail.com",
                   "password": "Password123!",
                   "currency": "BDT"
                 }
@@ -360,8 +365,8 @@
                   "data": {
                     "user": {
                       "id": "f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a",
-                      "name": "Nazmul Hasan",
-                      "email": "nazmul@example.com",
+                      "name": "Md. Nuruzzaman",
+                      "email": "dev.mdnuruzzaman@gmail.com",
                       "role": "USER",
                       "currency": "BDT"
                     },
@@ -418,7 +423,7 @@
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "example": "nazmul@example.com"
+                    "example": "dev.mdnuruzzaman@gmail.com"
                   },
                   "password": {
                     "type": "string",
@@ -426,7 +431,7 @@
                   }
                 },
                 "example": {
-                  "email": "nazmul@example.com",
+                  "email": "dev.mdnuruzzaman@gmail.com",
                   "password": "Password123!"
                 }
               }
@@ -446,8 +451,8 @@
                   "data": {
                     "user": {
                       "id": "f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a",
-                      "name": "Nazmul Hasan",
-                      "email": "nazmul@example.com",
+                      "name": "Md. Nuruzzaman",
+                      "email": "dev.mdnuruzzaman@gmail.com",
                       "role": "USER",
                       "currency": "BDT"
                     },
@@ -619,11 +624,11 @@
                   "email": {
                     "type": "string",
                     "format": "email",
-                    "example": "nazmul@example.com"
+                    "example": "dev.mdnuruzzaman@gmail.com"
                   }
                 },
                 "example": {
-                  "email": "nazmul@example.com"
+                  "email": "dev.mdnuruzzaman@gmail.com"
                 }
               }
             }
@@ -741,8 +746,8 @@
                   "message": "Profile fetched",
                   "data": {
                     "id": "f4b6b7c3-9d4d-4c08-90d8-0b8e5f3e8c2a",
-                    "name": "Nazmul Hasan",
-                    "email": "nazmul@example.com",
+                    "name": "Md. Nuruzzaman",
+                    "email": "dev.mdnuruzzaman@gmail.com",
                     "role": "USER",
                     "currency": "BDT",
                     "isActive": true
@@ -789,7 +794,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "example": "Nazmul Hasan"
+                    "example": "Md. Nuruzzaman"
                   },
                   "currency": {
                     "type": "string",
@@ -797,7 +802,7 @@
                   }
                 },
                 "example": {
-                  "name": "Nazmul Hasan",
+                  "name": "Md. Nuruzzaman",
                   "currency": "USD"
                 }
               }
@@ -1321,7 +1326,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-05T07:13:49.504Z"
+              "example": "2026-07-05T13:33:29.897Z"
             }
           },
           {
@@ -1330,7 +1335,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-05T07:13:49.504Z"
+              "example": "2026-07-05T13:33:29.897Z"
             }
           },
           {
@@ -1495,7 +1500,7 @@
                   "date": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-05T07:13:49.504Z"
+                    "example": "2026-07-05T13:33:29.898Z"
                   },
                   "tags": {
                     "type": "array",
@@ -1531,7 +1536,7 @@
                   "type": "INCOME",
                   "categoryId": "00000000-0000-0000-0000-000000000001",
                   "note": "Salary for July",
-                  "date": "2026-07-05T07:13:49.504Z",
+                  "date": "2026-07-05T13:33:29.898Z",
                   "tags": [
                     "salary",
                     "monthly"
@@ -1702,7 +1707,7 @@
                   "date": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-05T07:13:49.504Z"
+                    "example": "2026-07-05T13:33:29.898Z"
                   },
                   "tags": {
                     "type": "array",
@@ -1738,7 +1743,7 @@
                   "type": "INCOME",
                   "categoryId": "00000000-0000-0000-0000-000000000001",
                   "note": "Salary for July",
-                  "date": "2026-07-05T07:13:49.504Z",
+                  "date": "2026-07-05T13:33:29.898Z",
                   "tags": [
                     "salary",
                     "monthly"
@@ -2286,13 +2291,13 @@
                   "deadline": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-05T07:13:49.504Z"
+                    "example": "2026-07-05T13:33:29.898Z"
                   }
                 },
                 "example": {
                   "title": "New Laptop",
                   "targetAmount": 120000,
-                  "deadline": "2026-07-05T07:13:49.504Z"
+                  "deadline": "2026-07-05T13:33:29.898Z"
                 }
               }
             }
@@ -2716,7 +2721,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-05T07:13:49.504Z"
+              "example": "2026-07-05T13:33:29.898Z"
             }
           },
           {
@@ -2726,7 +2731,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-05T07:13:49.504Z"
+              "example": "2026-07-05T13:33:29.898Z"
             }
           }
         ],

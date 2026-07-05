@@ -33,13 +33,35 @@ export const create = async (
 
 export const list = async (
   userId: string,
-  query: { month?: number; year?: number },
-) =>
-  prisma.budget.findMany({
-    where: { userId, month: query.month, year: query.year },
-    include: { category: true },
-    orderBy: [{ year: 'desc' }, { month: 'desc' }],
-  });
+  query: { month?: number; year?: number; page: number; limit: number },
+) => {
+  const where = {
+    userId,
+    ...(query.month !== undefined ? { month: query.month } : {}),
+    ...(query.year !== undefined ? { year: query.year } : {}),
+  };
+  const skip = (query.page - 1) * query.limit;
+  const [items, total] = await Promise.all([
+    prisma.budget.findMany({
+      where,
+      include: { category: true },
+      orderBy: [{ year: 'desc' }, { month: 'desc' }],
+      skip,
+      take: query.limit,
+    }),
+    prisma.budget.count({ where }),
+  ]);
+
+  return {
+    items,
+    meta: {
+      total,
+      page: query.page,
+      limit: query.limit,
+      pages: Math.ceil(total / query.limit),
+    },
+  };
+};
 
 export const update = async (
   userId: string,

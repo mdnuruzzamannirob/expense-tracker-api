@@ -1,6 +1,92 @@
 type SchemaObject = Record<string, unknown>;
 type ResponseObject = Record<string, unknown>;
 type OpenApiDocument = Record<string, unknown>;
+type OpenApiParameter = Record<string, unknown>;
+type OpenApiOperation = Record<string, unknown>;
+
+const sampleUuid = '00000000-0000-0000-0000-000000000001';
+
+const getExampleFromSchema = (schema?: SchemaObject): unknown => {
+  if (!schema) return undefined;
+  if (schema.example !== undefined) return schema.example;
+  if (schema.default !== undefined) return schema.default;
+  if (Array.isArray(schema.enum) && schema.enum.length > 0) return schema.enum[0];
+
+  switch (schema.type) {
+    case 'string':
+      if (schema.format === 'uuid') return sampleUuid;
+      if (schema.format === 'email') return 'user@example.com';
+      if (schema.format === 'date-time') return new Date().toISOString();
+      if (schema.format === 'date') return new Date().toISOString().slice(0, 10);
+      return 'string';
+    case 'number':
+    case 'integer':
+      return 1;
+    case 'boolean':
+      return true;
+    case 'array':
+      return [getExampleFromSchema(schema.items as SchemaObject)];
+    case 'object': {
+      const output: Record<string, unknown> = {};
+      for (const [key, value] of Object.entries(schema.properties ?? {})) {
+        output[key] = getExampleFromSchema(value as SchemaObject);
+      }
+      return output;
+    }
+    default:
+      return undefined;
+  }
+};
+
+const enrichSchema = (schema?: SchemaObject): void => {
+  if (!schema || typeof schema !== 'object') return;
+
+  if (schema.example === undefined) {
+    const example = getExampleFromSchema(schema);
+    if (example !== undefined) {
+      schema.example = example;
+    }
+  }
+
+  if (schema.type === 'object' && schema.properties) {
+    for (const value of Object.values(schema.properties as Record<string, SchemaObject>)) {
+      enrichSchema(value);
+    }
+  }
+
+  if (schema.type === 'array' && schema.items && typeof schema.items === 'object') {
+    enrichSchema(schema.items as SchemaObject);
+  }
+};
+
+const enrichParameter = (parameter?: OpenApiParameter): void => {
+  if (!parameter?.schema || typeof parameter.schema !== 'object') return;
+
+  enrichSchema(parameter.schema as SchemaObject);
+
+  if (Array.isArray((parameter.schema as SchemaObject).enum)) {
+    const values = (parameter.schema as SchemaObject).enum as Array<string | number>;
+    const allowedValues = `Allowed values: ${values.join(', ')}`;
+    parameter.description = parameter.description
+      ? `${parameter.description} ${allowedValues}`
+      : allowedValues;
+  }
+};
+
+const enrichOperation = (operation?: OpenApiOperation): void => {
+  if (!operation) return;
+
+  for (const parameter of (operation.parameters ?? []) as OpenApiParameter[]) {
+    enrichParameter(parameter);
+  }
+
+  const requestBodies = (operation.requestBody as { content?: Record<string, { schema?: SchemaObject }> } | undefined)?.content;
+  if (requestBodies) {
+    for (const body of Object.values(requestBodies as Record<string, { schema?: SchemaObject } | undefined>)) {
+      if (body?.schema) enrichSchema(body.schema);
+    }
+  }
+};
 
 const unauthorizedResponse: ResponseObject = {
   description: 'Unauthorized',
@@ -48,7 +134,7 @@ const apiErrorResponse = (_status: number, message: string) => ({
   },
 });
 
-export const openApiSpec: OpenApiDocument = {
+const openApiSpec: OpenApiDocument = {
   openapi: '3.0.0',
   info: {
     title: 'Expense Tracker API',
@@ -108,11 +194,7 @@ export const openApiSpec: OpenApiDocument = {
         properties: {
           id: { type: 'string', format: 'uuid' },
           name: { type: 'string' },
-          type: {
-            type: 'string',
-            enum: ['INCOME', 'EXPENSE'],
-            description: 'The type of the category.',
-          },
+          type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
           icon: { type: 'string', nullable: true },
           color: { type: 'string', nullable: true },
           userId: { type: 'string', format: 'uuid' },
@@ -123,11 +205,7 @@ export const openApiSpec: OpenApiDocument = {
         properties: {
           id: { type: 'string', format: 'uuid' },
           amount: { type: 'number' },
-          type: {
-            type: 'string',
-            enum: ['INCOME', 'EXPENSE'],
-            description: 'The type of the transaction.',
-          },
+          type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
           note: { type: 'string', nullable: true },
           date: { type: 'string', format: 'date-time' },
           tags: { type: 'array', items: { type: 'string' } },
@@ -137,7 +215,6 @@ export const openApiSpec: OpenApiDocument = {
             type: 'string',
             enum: ['DAILY', 'WEEKLY', 'MONTHLY'],
             nullable: true,
-            description: 'The recurring rule for the transaction.',
           },
           categoryId: { type: 'string', format: 'uuid' },
           userId: { type: 'string', format: 'uuid' },
@@ -450,6 +527,28 @@ export const openApiSpec: OpenApiDocument = {
       get: {
         tags: ['Categories'],
         summary: 'List categories',
+        parameters: [
+          { name: 'search', in: 'query', schema: { type: 'string' } },
+          {
+            name: 'type',
+            in: 'query',
+            schema: {
+              type: 'string',
+              enum: ['INCOME', 'EXPENSE'],
+              description: 'Allowed values: INCOME, EXPENSE',
+            },
+          },
+          {
+            name: 'page',
+            in: 'query',
+            schema: { type: 'integer', default: 1 },
+          },
+          {
+            name: 'limit',
+            in: 'query',
+            schema: { type: 'integer', default: 20 },
+          },
+        ],
         responses: {
           '200': okResponse(
             'Categories fetched',
@@ -729,6 +828,12 @@ export const openApiSpec: OpenApiDocument = {
         parameters: [
           { name: 'month', in: 'query', schema: { type: 'integer' } },
           { name: 'year', in: 'query', schema: { type: 'integer' } },
+          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'limit',
+            in: 'query',
+            schema: { type: 'integer', default: 20 },
+          },
         ],
         responses: { '200': okResponse('Budgets fetched') },
       },
@@ -775,6 +880,23 @@ export const openApiSpec: OpenApiDocument = {
             schema: { type: 'string', format: 'uuid' },
           },
         ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  limit: { type: 'number', example: 10000 },
+                  alertThreshold: { type: 'integer', example: 80 },
+                  month: { type: 'integer', example: 7 },
+                  year: { type: 'integer', example: 2026 },
+                  categoryId: { type: 'string', format: 'uuid' },
+                },
+              },
+            },
+          },
+        },
         responses: { '200': okResponse('Budget updated') },
       },
     },
@@ -782,6 +904,15 @@ export const openApiSpec: OpenApiDocument = {
       get: {
         tags: ['Savings Goals'],
         summary: 'List savings goals',
+        parameters: [
+          { name: 'search', in: 'query', schema: { type: 'string' } },
+          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'limit',
+            in: 'query',
+            schema: { type: 'integer', default: 20 },
+          },
+        ],
         responses: { '200': okResponse('Savings goals fetched') },
       },
       post: {
@@ -970,6 +1101,24 @@ export const openApiSpec: OpenApiDocument = {
       get: {
         tags: ['Admin'],
         summary: 'List all users',
+        parameters: [
+          { name: 'search', in: 'query', schema: { type: 'string' } },
+          {
+            name: 'role',
+            in: 'query',
+            schema: {
+              type: 'string',
+              enum: ['USER', 'ADMIN'],
+            },
+          },
+          { name: 'isActive', in: 'query', schema: { type: 'boolean' } },
+          { name: 'page', in: 'query', schema: { type: 'integer', default: 1 } },
+          {
+            name: 'limit',
+            in: 'query',
+            schema: { type: 'integer', default: 20 },
+          },
+        ],
         responses: { '200': okResponse('Users fetched') },
       },
     },
@@ -1009,6 +1158,14 @@ export const openApiSpec: OpenApiDocument = {
     },
   },
 };
+
+for (const pathItem of Object.values(openApiSpec.paths as Record<string, Record<string, OpenApiOperation> | undefined>)) {
+  if (!pathItem) continue;
+
+  for (const operation of Object.values(pathItem)) {
+    enrichOperation(operation);
+  }
+}
 
 const hasPathParams = (path: string) => /\{[^}]+\}/.test(path);
 
@@ -1058,3 +1215,5 @@ for (const [path, pathItem] of Object.entries(
     };
   }
 }
+
+export { openApiSpec };

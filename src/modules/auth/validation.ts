@@ -5,7 +5,7 @@ export const registerSchema = z
     body: z
       .object({
         name: z.string().min(2),
-        email: z.string().email().toLowerCase(),
+        email: z.string().trim().email().toLowerCase(),
         password: z.string().min(8),
         currency: z.string().min(3).max(3).default('BDT'),
       })
@@ -17,7 +17,7 @@ export const loginSchema = z
   .object({
     body: z
       .object({
-        email: z.string().email().toLowerCase(),
+        email: z.string().trim().email().toLowerCase(),
         password: z.string().min(1),
       })
       .strict(),
@@ -34,7 +34,7 @@ export const logoutSchema = refreshSchema;
 
 export const forgotPasswordSchema = z
   .object({
-    body: z.object({ email: z.string().email().toLowerCase() }).strict(),
+    body: z.object({ email: z.string().trim().email().toLowerCase() }).strict(),
   })
   .passthrough();
 

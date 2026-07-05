@@ -120,8 +120,7 @@
             "enum": [
               "INCOME",
               "EXPENSE"
-            ],
-            "description": "The type of the category."
+            ]
           },
           "icon": {
             "type": "string",
@@ -152,8 +151,7 @@
             "enum": [
               "INCOME",
               "EXPENSE"
-            ],
-            "description": "The type of the transaction."
+            ]
           },
           "note": {
             "type": "string",
@@ -183,8 +181,7 @@
               "WEEKLY",
               "MONTHLY"
             ],
-            "nullable": true,
-            "description": "The recurring rule for the transaction."
+            "nullable": true
           },
           "categoryId": {
             "type": "string",
@@ -339,6 +336,12 @@
                     "type": "string",
                     "example": "BDT"
                   }
+                },
+                "example": {
+                  "name": "Nazmul Hasan",
+                  "email": "nazmul@example.com",
+                  "password": "Password123!",
+                  "currency": "BDT"
                 }
               }
             }
@@ -421,6 +424,10 @@
                     "type": "string",
                     "example": "Password123!"
                   }
+                },
+                "example": {
+                  "email": "nazmul@example.com",
+                  "password": "Password123!"
                 }
               }
             }
@@ -497,6 +504,9 @@
                     "type": "string",
                     "example": "eyJhbGciOi..."
                   }
+                },
+                "example": {
+                  "refreshToken": "eyJhbGciOi..."
                 }
               }
             }
@@ -552,6 +562,9 @@
                     "type": "string",
                     "example": "eyJhbGciOi..."
                   }
+                },
+                "example": {
+                  "refreshToken": "eyJhbGciOi..."
                 }
               }
             }
@@ -608,6 +621,9 @@
                     "format": "email",
                     "example": "nazmul@example.com"
                   }
+                },
+                "example": {
+                  "email": "nazmul@example.com"
                 }
               }
             }
@@ -669,6 +685,10 @@
                     "minLength": 8,
                     "example": "NewPassword123!"
                   }
+                },
+                "example": {
+                  "token": "8c5d7f1c...",
+                  "password": "NewPassword123!"
                 }
               }
             }
@@ -775,6 +795,10 @@
                     "type": "string",
                     "example": "USD"
                   }
+                },
+                "example": {
+                  "name": "Nazmul Hasan",
+                  "currency": "USD"
                 }
               }
             }
@@ -846,6 +870,10 @@
                     "minLength": 8,
                     "example": "NewPassword123!"
                   }
+                },
+                "example": {
+                  "currentPassword": "Password123!",
+                  "newPassword": "NewPassword123!"
                 }
               }
             }
@@ -897,6 +925,48 @@
           "Categories"
         ],
         "summary": "List categories",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "INCOME",
+                "EXPENSE"
+              ],
+              "description": "Allowed values: INCOME, EXPENSE",
+              "example": "INCOME"
+            },
+            "description": "Allowed values: INCOME, EXPENSE"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "example": 20
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Categories fetched",
@@ -917,6 +987,17 @@
                     "color": "#f97316"
                   }
                 ]
+              }
+            }
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
               }
             }
           },
@@ -969,7 +1050,8 @@
                     "enum": [
                       "INCOME",
                       "EXPENSE"
-                    ]
+                    ],
+                    "example": "INCOME"
                   },
                   "icon": {
                     "type": "string",
@@ -979,6 +1061,12 @@
                     "type": "string",
                     "example": "#22c55e"
                   }
+                },
+                "example": {
+                  "name": "Groceries",
+                  "type": "INCOME",
+                  "icon": "shopping-bag",
+                  "color": "#22c55e"
                 }
               }
             }
@@ -1037,7 +1125,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -1057,7 +1146,8 @@
                     "enum": [
                       "INCOME",
                       "EXPENSE"
-                    ]
+                    ],
+                    "example": "INCOME"
                   },
                   "icon": {
                     "type": "string",
@@ -1067,6 +1157,12 @@
                     "type": "string",
                     "example": "#22c55e"
                   }
+                },
+                "example": {
+                  "name": "Groceries",
+                  "type": "INCOME",
+                  "icon": "shopping-bag",
+                  "color": "#22c55e"
                 }
               }
             }
@@ -1134,7 +1230,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -1204,15 +1301,18 @@
               "enum": [
                 "INCOME",
                 "EXPENSE"
-              ]
-            }
+              ],
+              "example": "INCOME"
+            },
+            "description": "Allowed values: INCOME, EXPENSE"
           },
           {
             "name": "category",
             "in": "query",
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           },
           {
@@ -1220,7 +1320,8 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "example": "2026-07-05T07:12:05.994Z"
             }
           },
           {
@@ -1228,14 +1329,16 @@
             "in": "query",
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "example": "2026-07-05T07:12:05.994Z"
             }
           },
           {
             "name": "tag",
             "in": "query",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "example": "string"
             }
           },
           {
@@ -1243,7 +1346,8 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "default": 1
+              "default": 1,
+              "example": 1
             }
           },
           {
@@ -1251,7 +1355,8 @@
             "in": "query",
             "schema": {
               "type": "integer",
-              "default": 20
+              "default": 20,
+              "example": 20
             }
           },
           {
@@ -1264,8 +1369,10 @@
                 "amount",
                 "createdAt"
               ],
-              "default": "date"
-            }
+              "default": "date",
+              "example": "date"
+            },
+            "description": "Allowed values: date, amount, createdAt"
           },
           {
             "name": "sortOrder",
@@ -1276,8 +1383,10 @@
                 "asc",
                 "desc"
               ],
-              "default": "desc"
-            }
+              "default": "desc",
+              "example": "desc"
+            },
+            "description": "Allowed values: asc, desc"
           }
         ],
         "responses": {
@@ -1371,11 +1480,13 @@
                     "enum": [
                       "INCOME",
                       "EXPENSE"
-                    ]
+                    ],
+                    "example": "INCOME"
                   },
                   "categoryId": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000001"
                   },
                   "note": {
                     "type": "string",
@@ -1383,12 +1494,14 @@
                   },
                   "date": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2026-07-05T07:12:05.994Z"
                   },
                   "tags": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "string"
                     },
                     "example": [
                       "salary",
@@ -1409,8 +1522,23 @@
                       "DAILY",
                       "WEEKLY",
                       "MONTHLY"
-                    ]
+                    ],
+                    "example": "DAILY"
                   }
+                },
+                "example": {
+                  "amount": 1250,
+                  "type": "INCOME",
+                  "categoryId": "00000000-0000-0000-0000-000000000001",
+                  "note": "Salary for July",
+                  "date": "2026-07-05T07:12:05.994Z",
+                  "tags": [
+                    "salary",
+                    "monthly"
+                  ],
+                  "receiptUrl": "https://res.cloudinary.com/.../receipt.png",
+                  "isRecurring": false,
+                  "recurringRule": "DAILY"
                 }
               }
             }
@@ -1474,8 +1602,12 @@
                 "properties": {
                   "file": {
                     "type": "string",
-                    "format": "binary"
+                    "format": "binary",
+                    "example": "string"
                   }
+                },
+                "example": {
+                  "file": "string"
                 }
               }
             }
@@ -1534,7 +1666,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -1554,11 +1687,13 @@
                     "enum": [
                       "INCOME",
                       "EXPENSE"
-                    ]
+                    ],
+                    "example": "INCOME"
                   },
                   "categoryId": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000001"
                   },
                   "note": {
                     "type": "string",
@@ -1566,12 +1701,14 @@
                   },
                   "date": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2026-07-05T07:12:05.994Z"
                   },
                   "tags": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "string"
                     },
                     "example": [
                       "salary",
@@ -1592,8 +1729,23 @@
                       "DAILY",
                       "WEEKLY",
                       "MONTHLY"
-                    ]
+                    ],
+                    "example": "DAILY"
                   }
+                },
+                "example": {
+                  "amount": 1250,
+                  "type": "INCOME",
+                  "categoryId": "00000000-0000-0000-0000-000000000001",
+                  "note": "Salary for July",
+                  "date": "2026-07-05T07:12:05.994Z",
+                  "tags": [
+                    "salary",
+                    "monthly"
+                  ],
+                  "receiptUrl": "https://res.cloudinary.com/.../receipt.png",
+                  "isRecurring": false,
+                  "recurringRule": "DAILY"
                 }
               }
             }
@@ -1661,7 +1813,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -1727,14 +1880,34 @@
             "name": "month",
             "in": "query",
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "example": 1
             }
           },
           {
             "name": "year",
             "in": "query",
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "example": 20
             }
           }
         ],
@@ -1813,8 +1986,16 @@
                   },
                   "categoryId": {
                     "type": "string",
-                    "format": "uuid"
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000001"
                   }
+                },
+                "example": {
+                  "limit": 10000,
+                  "alertThreshold": 80,
+                  "month": 7,
+                  "year": 2026,
+                  "categoryId": "00000000-0000-0000-0000-000000000001"
                 }
               }
             }
@@ -1908,10 +2089,51 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "limit": {
+                    "type": "number",
+                    "example": 10000
+                  },
+                  "alertThreshold": {
+                    "type": "integer",
+                    "example": 80
+                  },
+                  "month": {
+                    "type": "integer",
+                    "example": 7
+                  },
+                  "year": {
+                    "type": "integer",
+                    "example": 2026
+                  },
+                  "categoryId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "example": "00000000-0000-0000-0000-000000000001"
+                  }
+                },
+                "example": {
+                  "limit": 10000,
+                  "alertThreshold": 80,
+                  "month": 7,
+                  "year": 2026,
+                  "categoryId": "00000000-0000-0000-0000-000000000001"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Budget updated"
@@ -1969,9 +2191,48 @@
           "Savings Goals"
         ],
         "summary": "List savings goals",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "example": 20
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Savings goals fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
           },
           "401": {
             "description": "Authentication token is required",
@@ -2024,8 +2285,14 @@
                   },
                   "deadline": {
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date-time",
+                    "example": "2026-07-05T07:12:05.994Z"
                   }
+                },
+                "example": {
+                  "title": "New Laptop",
+                  "targetAmount": 120000,
+                  "deadline": "2026-07-05T07:12:05.994Z"
                 }
               }
             }
@@ -2084,7 +2351,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -2102,6 +2370,9 @@
                     "type": "number",
                     "example": 5000
                   }
+                },
+                "example": {
+                  "amount": 5000
                 }
               }
             }
@@ -2171,7 +2442,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -2443,7 +2715,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "example": "2026-07-05T07:12:05.994Z"
             }
           },
           {
@@ -2452,7 +2725,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date-time",
+              "example": "2026-07-05T07:12:05.994Z"
             }
           }
         ],
@@ -2512,15 +2786,18 @@
               "enum": [
                 "pdf",
                 "csv"
-              ]
-            }
+              ],
+              "example": "pdf"
+            },
+            "description": "Allowed values: pdf, csv"
           },
           {
             "name": "month",
             "in": "query",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "example": 1
             }
           },
           {
@@ -2528,7 +2805,8 @@
             "in": "query",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "integer",
+              "example": 1
             }
           }
         ],
@@ -2578,9 +2856,69 @@
           "Admin"
         ],
         "summary": "List all users",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "string"
+            }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "USER",
+                "ADMIN"
+              ],
+              "example": "USER"
+            },
+            "description": "Allowed values: USER, ADMIN"
+          },
+          {
+            "name": "isActive",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "example": true
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "example": 1
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "example": 20
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Users fetched"
+          },
+          "400": {
+            "description": "Validation failed",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Validation failed"
+                }
+              }
+            }
           },
           "401": {
             "description": "Authentication token is required",
@@ -2631,7 +2969,8 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "uuid"
+              "format": "uuid",
+              "example": "00000000-0000-0000-0000-000000000001"
             }
           }
         ],
@@ -2649,6 +2988,9 @@
                     "type": "boolean",
                     "example": true
                   }
+                },
+                "example": {
+                  "isActive": true
                 }
               }
             }

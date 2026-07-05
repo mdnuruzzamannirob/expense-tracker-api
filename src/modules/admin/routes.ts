@@ -2,12 +2,12 @@ import { Router } from 'express';
 import { authenticate, authorize } from '../../middlewares/auth.middleware.js';
 import { validate } from '../../middlewares/validate.middleware.js';
 import * as controller from './controller.js';
-import { userStatusSchema } from './validation.js';
+import { listUsersSchema, userStatusSchema } from './validation.js';
 
 const router = Router();
 
 router.use(authenticate, authorize('ADMIN'));
-router.get('/users', controller.users);
+router.get('/users', validate(listUsersSchema), controller.users);
 router.patch(
   '/users/:id/status',
   validate(userStatusSchema),

@@ -144,7 +144,11 @@ const buildQuery = (operation: OpenApiOperation) =>
         parameter.schema?.default ??
         getExampleFromSchema(parameter.schema) ??
         '',
-      description: parameter.description ?? '',
+      description:
+        parameter.description ??
+        (parameter.schema?.enum?.length
+          ? `Allowed values: ${parameter.schema.enum.join(', ')}`
+          : ''),
     }));
 
 const buildPath = (path: string, operation: OpenApiOperation) => {

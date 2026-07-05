@@ -2,6 +2,19 @@ import { z } from 'zod';
 
 const typeSchema = z.enum(['INCOME', 'EXPENSE']);
 
+export const listCategoriesSchema = z
+  .object({
+    query: z
+      .object({
+        search: z.string().trim().min(1).optional(),
+        type: typeSchema.optional(),
+        page: z.coerce.number().int().positive().default(1),
+        limit: z.coerce.number().int().positive().max(100).default(20),
+      })
+      .strict(),
+  })
+  .passthrough();
+
 export const createCategorySchema = z
   .object({
     body: z

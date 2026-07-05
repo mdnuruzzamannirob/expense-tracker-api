@@ -17,11 +17,12 @@ export const create: RequestHandler = async (req, res, next) => {
 
 export const list: RequestHandler = async (req, res, next) => {
   try {
+    const query = res.locals.validated?.query ?? req.query;
     sendResponse(
       res,
       200,
       'Budgets fetched',
-      await service.list(req.user!.id, req.query as never),
+      await service.list(req.user!.id, query as Parameters<typeof service.list>[1]),
     );
   } catch (error) {
     next(error);

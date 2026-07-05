@@ -29,12 +29,40 @@ export const create = async (
     }),
   );
 
-export const list = async (userId: string) => {
-  const goals = await prisma.savingsGoal.findMany({
-    where: { userId },
-    orderBy: { deadline: 'asc' },
-  });
-  return goals.map(withProgress);
+export const list = async (
+  userId: string,
+  query: { search?: string; page: number; limit: number },
+) => {
+  const where = {
+    userId,
+    ...(query.search
+      ? {
+          title: {
+            contains: query.search,
+            mode: 'insensitive' as const,
+          },
+        }
+      : {}),
+  };
+  const skip = (query.page - 1) * query.limit;
+  const [goals, total] = await Promise.all([
+    prisma.savingsGoal.findMany({
+      where,
+      orderBy: { deadline: 'asc' },
+      skip,
+      take: query.limit,
+    }),
+    prisma.savingsGoal.count({ where }),
+  ]);
+  return {
+    items: goals.map(withProgress),
+    meta: {
+      total,
+      page: query.page,
+      limit: query.limit,
+      pages: Math.ceil(total / query.limit),
+    },
+  };
 };
 
 export const contribute = async (

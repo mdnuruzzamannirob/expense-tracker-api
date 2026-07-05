@@ -6,13 +6,14 @@ import {
   contributeSchema,
   createSavingsGoalSchema,
   idParamSchema,
+  listSavingsGoalsSchema,
 } from './validation.js';
 
 const router = Router();
 
 router.use(authenticate);
 router.post('/', validate(createSavingsGoalSchema), controller.create);
-router.get('/', controller.list);
+router.get('/', validate(listSavingsGoalsSchema), controller.list);
 router.patch(
   '/:id/contribute',
   validate(contributeSchema),

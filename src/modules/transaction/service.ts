@@ -8,6 +8,7 @@ type ListQuery = {
   from?: string;
   to?: string;
   tag?: string;
+  search?: string;
   page: number;
   limit: number;
   sortBy: 'date' | 'amount' | 'createdAt';
@@ -61,6 +62,23 @@ export const list = async (userId: string, query: ListQuery) => {
     type: query.type,
     categoryId: query.category,
     tags: query.tag ? { has: query.tag } : undefined,
+    ...(query.search
+      ? {
+          OR: [
+            {
+              note: {
+                contains: query.search,
+                mode: 'insensitive' as const,
+              },
+            },
+            {
+              tags: {
+                has: query.search,
+              },
+            },
+          ],
+        }
+      : {}),
     date:
       query.from || query.to
         ? {

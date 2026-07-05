@@ -1,8 +1,48 @@
 import { prisma } from '../../config/db.js';
 import { AppError } from '../../utils/response.js';
 
-export const list = async (userId: string) =>
-  prisma.category.findMany({ where: { userId }, orderBy: { name: 'asc' } });
+export const list = async (
+  userId: string,
+  query: {
+    search?: string;
+    type?: 'INCOME' | 'EXPENSE';
+    page: number;
+    limit: number;
+  },
+) => {
+  const where = {
+    userId,
+    type: query.type,
+    ...(query.search
+      ? {
+          name: {
+            contains: query.search,
+            mode: 'insensitive' as const,
+          },
+        }
+      : {}),
+  };
+  const skip = (query.page - 1) * query.limit;
+  const [items, total] = await Promise.all([
+    prisma.category.findMany({
+      where,
+      orderBy: { name: 'asc' },
+      skip,
+      take: query.limit,
+    }),
+    prisma.category.count({ where }),
+  ]);
+
+  return {
+    items,
+    meta: {
+      total,
+      page: query.page,
+      limit: query.limit,
+      pages: Math.ceil(total / query.limit),
+    },
+  };
+};
 
 export const create = async (
   userId: string,

@@ -20,6 +20,8 @@ export const listBudgetSchema = z
       .object({
         month: z.coerce.number().int().min(1).max(12).optional(),
         year: z.coerce.number().int().min(1970).optional(),
+        page: z.coerce.number().int().positive().default(1),
+        limit: z.coerce.number().int().positive().max(100).default(20),
       })
       .strict(),
   })

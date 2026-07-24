@@ -17,6 +17,7 @@ limitations, see the [project specification](./expense-tracker-api-project-spec.
 - CSRF protection for state-changing requests
 - Registration, login, logout, profile management, and password reset
 - User-owned categories, transactions, budgets, and savings goals
+- Monthly and yearly budgets with rollover and threshold alerts
 - Transaction filtering, search, sorting, pagination, and CSV import
 - Daily, weekly, and monthly recurring-transaction processing
 - Monthly and yearly summaries, category breakdowns, and daily trends
@@ -40,8 +41,8 @@ limitations, see the [project specification](./expense-tracker-api-project-spec.
 | Authentication    | JWT, bcrypt, HttpOnly cookies        |
 | Validation        | Zod                                  |
 | Jobs              | node-cron                            |
-| API documentation | OpenAPI 3, Swagger UI, Postman       |
-| Testing           | Jest, Supertest, ts-jest             |
+| API documentation | OpenAPI 3.1, Swagger UI, Postman     |
+| Testing           | Vitest, Supertest, Testcontainers    |
 
 ## Prerequisites
 
@@ -228,14 +229,14 @@ operations, they require authentication. Admin routes additionally require the
 | Users         | `GET /api/users/me`, `PATCH /api/users/me`, `PATCH /api/users/me/password`                                                                                                                  |
 | Categories    | `GET /api/categories`, `POST /api/categories`, `PATCH /api/categories/:id`, `DELETE /api/categories/:id`                                                                                    |
 | Transactions  | `GET /api/transactions`, `POST /api/transactions`, `POST /api/transactions/import`, `PATCH /api/transactions/:id`, `DELETE /api/transactions/:id`                                           |
-| Budgets       | `GET /api/budgets`, `POST /api/budgets`, `GET /api/budgets/alerts`, `PATCH /api/budgets/:id`                                                                                                |
+| Budgets       | `GET /api/budgets`, `POST /api/budgets`, `GET /api/budgets/alerts`, `PATCH /api/budgets/:id`, `DELETE /api/budgets/:id`                                                                              |
 | Savings goals | `GET /api/savings-goals`, `POST /api/savings-goals`, `PATCH /api/savings-goals/:id/contribute`, `DELETE /api/savings-goals/:id`                                                             |
 | Reports       | `GET /api/reports/monthly`, `GET /api/reports/yearly`, `GET /api/reports/category-breakdown`, `GET /api/reports/trend`, `GET /api/reports/export`                                           |
 | Admin         | `GET /api/admin/users`, `PATCH /api/admin/users/:id/status`, `GET /api/admin/stats`                                                                                                         |
 
 Use Swagger UI for request schemas, query parameters, and response examples. The
-generated artifacts are also committed at `docs/openapi.json` and
-`docs/postman-collection.json`.
+generated artifacts are also committed at `src/docs/openapi.json` and
+`src/docs/postman-collection.json`.
 
 ### Pagination and filters
 
@@ -290,14 +291,15 @@ with an informational log when SMTP is not configured.
 | `pnpm test`             | Run unit tests                                    |
 | `pnpm test:unit`        | Run unit tests serially                           |
 | `pnpm test:integration` | Run integration tests serially                    |
+| `pnpm test:containers`  | Run all tests with disposable PostgreSQL and Redis containers |
 | `pnpm test:coverage`    | Run unit tests with coverage                      |
 | `pnpm test:all`         | Run unit and integration tests                    |
 | `pnpm prisma:generate`  | Generate Prisma Client in `src/generated/prisma`  |
 | `pnpm prisma:migrate`   | Run Prisma's development migration workflow       |
 | `pnpm prisma:studio`    | Start Prisma Studio without opening a browser     |
 | `pnpm prisma:seed`      | Seed the development administrator and categories |
-| `pnpm swagger:generate` | Regenerate `docs/openapi.json`                    |
-| `pnpm postman:generate` | Regenerate `docs/postman-collection.json`         |
+| `pnpm swagger:generate` | Regenerate `src/docs/openapi.json`                |
+| `pnpm postman:generate` | Regenerate `src/docs/postman-collection.json`     |
 | `pnpm docs:generate`    | Regenerate both API-documentation artifacts       |
 
 ## Testing
@@ -313,12 +315,9 @@ pnpm typecheck:test
 pnpm test:all
 ```
 
-The Jest package scripts use POSIX-style inline environment assignment. From
-Windows PowerShell, use the equivalent direct Node invocation:
-
-```powershell
-node --experimental-vm-modules .\node_modules\jest\bin\jest.js tests\unit tests\integration --runInBand
-```
+Alternatively, with Docker running, `pnpm test:containers` provisions disposable
+PostgreSQL and Redis containers, applies migrations, runs all tests, and removes
+the containers afterward.
 
 > **Warning:** Integration-test setup truncates every table in the configured
 > PostgreSQL `public` schema and flushes the configured Redis database before
@@ -346,25 +345,23 @@ expense-tracker-api/
 |-- tests/
 |   |-- unit/
 |   `-- integration/
-|-- docs/                       # Generated OpenAPI and Postman artifacts
 |-- Dockerfile
 `-- docker-compose.yml
 ```
 
-## Current Constraints
+## Operational Notes
 
-- Monetary values use database floating-point fields. Use decimal storage before
-  relying on this service for accounting-grade precision.
-- `receiptUrl` stores an existing URL; the API does not upload receipt files to
-  object storage.
-- Background jobs run inside the API process and do not use distributed locking.
-  A multi-replica deployment needs a single scheduler or external job runner.
-- Redis is required during server startup, even though it is used primarily for
-  reports.
-- The API currently has no budget-delete route or general savings-goal update
-  route.
-- The packaged Jest commands need a POSIX-compatible shell; use the documented
-  direct Node command on Windows.
+- Monetary columns use PostgreSQL `DECIMAL`; JSON responses serialize monetary
+  values as numbers.
+- Receipt images are validated and uploaded to authenticated Cloudinary storage.
+- Background jobs run inside the API process. Keep `SCHEDULER_ENABLED=true` on
+  only one replica, or move scheduling to a dedicated worker.
+- Redis is required during server startup, though report reads tolerate a
+  temporary cache outage after startup.
+- CI validates generated OpenAPI/Postman artifacts, builds the production image,
+  and publishes main-branch images to GitHub Container Registry. Deployment to
+  ECS still requires repository-specific AWS cluster, service, and task
+  definition configuration.
 
 ## License
 

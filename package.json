@@ -14,6 +14,7 @@
     "test": "vitest run tests/unit",
     "test:unit": "vitest run tests/unit",
     "test:integration": "vitest run tests/integration",
+    "test:containers": "tsx tests/runWithContainers.ts",
     "test:coverage": "vitest run tests/unit --coverage",
     "test:all": "vitest run",
     "swagger:generate": "tsx src/scripts/generate-openapi.ts",

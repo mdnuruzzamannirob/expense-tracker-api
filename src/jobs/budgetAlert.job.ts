@@ -12,7 +12,13 @@ export const runBudgetAlertJob = async (runAt = new Date()) => {
   const month = runAt.getUTCMonth() + 1;
   const year = runAt.getUTCFullYear();
   const budgets = await prisma.budget.findMany({
-    where: { month, year },
+    where: {
+      year,
+      OR: [
+        { period: 'MONTHLY', month },
+        { period: 'YEARLY', month: null },
+      ],
+    },
     include: { category: true, user: true },
   });
 

@@ -88,7 +88,7 @@ describe('Savings Goal Module Integration Tests', () => {
     const dbGoal = await prisma.savingsGoal.findUnique({
       where: { id: goalId },
     });
-    expect(dbGoal?.currentAmount).toBe(250);
+    expect(dbGoal?.currentAmount.toNumber()).toBe(250);
   });
 
   it('should delete a savings goal', async () => {

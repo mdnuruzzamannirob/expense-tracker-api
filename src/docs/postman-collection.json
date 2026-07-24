@@ -1414,12 +1414,12 @@
                     },
                     {
                       "key": "from",
-                      "value": "2026-07-21T11:36:34.572Z",
+                      "value": "2026-07-24T10:53:08.027Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "2026-07-21T11:36:34.573Z",
+                      "value": "2026-07-24T10:53:08.028Z",
                       "description": ""
                     },
                     {
@@ -1523,7 +1523,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-21T11:36:34.573Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
+                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-24T10:53:08.028Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1787,7 +1787,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-21T11:36:34.573Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
+                  "raw": "{\n  \"amount\": 1250,\n  \"type\": \"INCOME\",\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\",\n  \"note\": \"Salary for July\",\n  \"date\": \"2026-07-24T10:53:08.028Z\",\n  \"tags\": [\n    \"salary\",\n    \"monthly\"\n  ],\n  \"receiptUrl\": \"https://res.cloudinary.com/.../receipt.png\",\n  \"isRecurring\": false,\n  \"recurringRule\": \"DAILY\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1967,6 +1967,11 @@
                       "description": ""
                     },
                     {
+                      "key": "period",
+                      "value": "MONTHLY",
+                      "description": "Allowed values: MONTHLY, YEARLY"
+                    },
+                    {
                       "key": "page",
                       "value": 1,
                       "description": ""
@@ -2052,7 +2057,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"limit\": 10000,\n  \"alertThreshold\": 80,\n  \"month\": 7,\n  \"year\": 2026,\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\"\n}",
+                  "raw": "{\n  \"limit\": 10000,\n  \"alertThreshold\": 80,\n  \"period\": \"MONTHLY\",\n  \"month\": 7,\n  \"year\": 2026,\n  \"rollover\": false\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2205,7 +2210,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"limit\": 10000,\n  \"alertThreshold\": 80,\n  \"month\": 7,\n  \"year\": 2026,\n  \"categoryId\": \"00000000-0000-0000-0000-000000000001\"\n}",
+                  "raw": "{\n  \"limit\": 10000,\n  \"alertThreshold\": 80,\n  \"period\": \"MONTHLY\",\n  \"month\": 7,\n  \"year\": 2026,\n  \"rollover\": true\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2465,7 +2470,7 @@
                 },
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"title\": \"New Laptop\",\n  \"targetAmount\": 120000,\n  \"deadline\": \"2026-07-21T11:36:34.573Z\"\n}",
+                  "raw": "{\n  \"title\": \"New Laptop\",\n  \"targetAmount\": 120000,\n  \"deadline\": \"2026-07-24T10:53:08.028Z\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3069,12 +3074,12 @@
                   "query": [
                     {
                       "key": "from",
-                      "value": "2026-07-21T11:36:34.573Z",
+                      "value": "2026-07-24T10:53:08.028Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "2026-07-21T11:36:34.573Z",
+                      "value": "2026-07-24T10:53:08.028Z",
                       "description": ""
                     }
                   ]
@@ -3684,12 +3689,12 @@
                   "query": [
                     {
                       "key": "from",
-                      "value": "2026-07-21T11:36:34.573Z",
+                      "value": "2026-07-24T10:53:08.028Z",
                       "description": ""
                     },
                     {
                       "key": "to",
-                      "value": "2026-07-21T11:36:34.573Z",
+                      "value": "2026-07-24T10:53:08.028Z",
                       "description": ""
                     },
                     {

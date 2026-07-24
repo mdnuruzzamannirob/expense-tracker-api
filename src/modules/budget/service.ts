@@ -1,5 +1,9 @@
 import { prisma } from '../../config/db.js';
-import type { Budget, Prisma } from '../../generated/prisma/client.js';
+import type {
+  Budget,
+  BudgetPeriod,
+  Prisma,
+} from '../../generated/prisma/client.js';
 import {
   enforceLimit,
   getEntitlements,
@@ -9,7 +13,8 @@ import { AppError } from '../../utils/response.js';
 type BudgetInput = {
   limit: number;
   alertThreshold: number;
-  month: number;
+  period: BudgetPeriod;
+  month?: number | null;
   year: number;
   categoryId?: string | null;
   rollover: boolean;
@@ -36,13 +41,15 @@ const ensureOwned = async (userId: string, id: string) => {
 const ensureUnique = async (
   userId: string,
   categoryId: string | null | undefined,
-  month: number,
+  period: BudgetPeriod,
+  month: number | null,
   year: number,
   excludeId?: string,
 ) => {
   const existing = await prisma.budget.findFirst({
     where: {
       userId,
+      period,
       categoryId: categoryId ?? null,
       month,
       year,
@@ -59,13 +66,19 @@ const expenseWhere = (budget: Budget, start: Date, end: Date): Prisma.Transactio
   date: { gte: start, lt: end },
 });
 
-const period = (year: number, month: number) => ({
-  start: new Date(Date.UTC(year, month - 1, 1)),
-  end: new Date(Date.UTC(year, month, 1)),
-});
+const dateRange = (budget: Pick<Budget, 'period' | 'year' | 'month'>) =>
+  budget.period === 'YEARLY'
+    ? {
+        start: new Date(Date.UTC(budget.year, 0, 1)),
+        end: new Date(Date.UTC(budget.year + 1, 0, 1)),
+      }
+    : {
+        start: new Date(Date.UTC(budget.year, budget.month! - 1, 1)),
+        end: new Date(Date.UTC(budget.year, budget.month!, 1)),
+      };
 
 export const calculateBudgetProgress = async (budget: Budget) => {
-  const { start, end } = period(budget.year, budget.month);
+  const { start, end } = dateRange(budget);
   const total = await prisma.transaction.aggregate({
     _sum: { amount: true },
     where: expenseWhere(budget, start, end),
@@ -74,17 +87,24 @@ export const calculateBudgetProgress = async (budget: Budget) => {
   let rolledOver = 0;
 
   if (budget.rollover) {
-    const previousDate = new Date(Date.UTC(budget.year, budget.month - 2, 1));
+    const previousDate =
+      budget.period === 'YEARLY'
+        ? new Date(Date.UTC(budget.year - 1, 0, 1))
+        : new Date(Date.UTC(budget.year, budget.month! - 2, 1));
     const previous = await prisma.budget.findFirst({
       where: {
         userId: budget.userId,
+        period: budget.period,
         categoryId: budget.categoryId,
-        month: previousDate.getUTCMonth() + 1,
+        month:
+          budget.period === 'YEARLY'
+            ? null
+            : previousDate.getUTCMonth() + 1,
         year: previousDate.getUTCFullYear(),
       },
     });
     if (previous) {
-      const previousPeriod = period(previous.year, previous.month);
+      const previousPeriod = dateRange(previous);
       const previousTotal = await prisma.transaction.aggregate({
         _sum: { amount: true },
         where: expenseWhere(previous, previousPeriod.start, previousPeriod.end),
@@ -113,18 +133,44 @@ export const create = async (userId: string, data: BudgetInput) => {
   const count = await prisma.budget.count({ where: { userId } });
   enforceLimit(count, limits.maxBudgets, 'budgets');
   await ensureExpenseCategory(userId, data.categoryId);
-  await ensureUnique(userId, data.categoryId, data.month, data.year);
+  const month = data.period === 'YEARLY' ? null : data.month;
+  if (data.period === 'MONTHLY' && month == null) {
+    throw new AppError(400, 'Month is required for a monthly budget');
+  }
+  await ensureUnique(
+    userId,
+    data.categoryId,
+    data.period,
+    month ?? null,
+    data.year,
+  );
   return prisma.budget.create({
-    data: { ...data, userId, categoryId: data.categoryId ?? null },
+    data: {
+      ...data,
+      month,
+      userId,
+      categoryId: data.categoryId ?? null,
+    },
     include: { category: true },
   });
 };
 
 export const list = async (
   userId: string,
-  query: { month?: number; year?: number; page: number; limit: number },
+  query: {
+    month?: number;
+    year?: number;
+    period?: BudgetPeriod;
+    page: number;
+    limit: number;
+  },
 ) => {
-  const where = { userId, month: query.month, year: query.year };
+  const where = {
+    userId,
+    month: query.month,
+    year: query.year,
+    period: query.period,
+  };
   const skip = (query.page - 1) * query.limit;
   const [budgets, total] = await Promise.all([
     prisma.budget.findMany({
@@ -160,13 +206,29 @@ export const update = async (
 ) => {
   const current = await ensureOwned(userId, id);
   const categoryId = data.categoryId !== undefined ? data.categoryId : current.categoryId;
-  const month = data.month ?? current.month;
+  const budgetPeriod = data.period ?? current.period;
+  const month =
+    budgetPeriod === 'YEARLY'
+      ? null
+      : data.month !== undefined
+        ? data.month
+        : current.month;
+  if (budgetPeriod === 'MONTHLY' && month == null) {
+    throw new AppError(400, 'Month is required for a monthly budget');
+  }
   const year = data.year ?? current.year;
   await ensureExpenseCategory(userId, categoryId);
-  await ensureUnique(userId, categoryId, month, year, id);
+  await ensureUnique(
+    userId,
+    categoryId,
+    budgetPeriod,
+    month,
+    year,
+    id,
+  );
   return prisma.budget.update({
     where: { id },
-    data: { ...data, categoryId },
+    data: { ...data, period: budgetPeriod, month, categoryId },
     include: { category: true },
   });
 };
@@ -174,7 +236,14 @@ export const update = async (
 export const alerts = async (userId: string) => {
   const now = new Date();
   const budgets = await prisma.budget.findMany({
-    where: { userId, month: now.getUTCMonth() + 1, year: now.getUTCFullYear() },
+    where: {
+      userId,
+      year: now.getUTCFullYear(),
+      OR: [
+        { period: 'MONTHLY', month: now.getUTCMonth() + 1 },
+        { period: 'YEARLY', month: null },
+      ],
+    },
     include: { category: true },
   });
   const items = await Promise.all(

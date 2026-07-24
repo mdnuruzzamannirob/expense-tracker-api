@@ -209,31 +209,47 @@ export const refresh = async (refreshToken: string) => {
     throw new AppError(401, 'Invalid refresh token');
   }
 
-  return prisma.$transaction(
-    async (tx) => {
-      const hash = tokenHash(refreshToken);
-      const stored = await tx.refreshToken.findUnique({ where: { token: hash } });
-      if (
-        !stored ||
-        stored.userId !== payload.sub ||
-        stored.revoked ||
-        stored.expiresAt.getTime() <= Date.now()
-      ) {
-        throw new AppError(401, 'Invalid refresh token');
-      }
+  try {
+    return await prisma.$transaction(
+      async (tx) => {
+        const hash = tokenHash(refreshToken);
+        const stored = await tx.refreshToken.findUnique({
+          where: { token: hash },
+        });
+        if (
+          !stored ||
+          stored.userId !== payload.sub ||
+          stored.revoked ||
+          stored.expiresAt.getTime() <= Date.now()
+        ) {
+          throw new AppError(401, 'Invalid refresh token');
+        }
 
-      const consumed = await tx.refreshToken.updateMany({
-        where: { id: stored.id, revoked: false, expiresAt: { gt: new Date() } },
-        data: { revoked: true },
-      });
-      if (consumed.count !== 1) throw new AppError(401, 'Refresh token was reused');
+        const consumed = await tx.refreshToken.updateMany({
+          where: { id: stored.id, revoked: false, expiresAt: { gt: new Date() } },
+          data: { revoked: true },
+        });
+        if (consumed.count !== 1) {
+          throw new AppError(401, 'Refresh token was reused');
+        }
 
-      const user = await tx.user.findUnique({ where: { id: payload.sub } });
-      if (!user?.isActive) throw new AppError(401, 'User is inactive');
-      return persistToken(tx, user);
-    },
-    { isolationLevel: 'Serializable' },
-  );
+        const user = await tx.user.findUnique({ where: { id: payload.sub } });
+        if (!user?.isActive) throw new AppError(401, 'User is inactive');
+        return persistToken(tx, user);
+      },
+      { isolationLevel: 'Serializable' },
+    );
+  } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      error.code === 'P2034'
+    ) {
+      throw new AppError(401, 'Refresh token was reused');
+    }
+    throw error;
+  }
 };
 
 export const logout = async (refreshToken?: string) => {

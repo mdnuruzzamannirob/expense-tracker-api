@@ -33,8 +33,11 @@ describe('Category Module Integration Tests', () => {
 
     expect(res.body.success).toBe(true);
     expect(res.body.data).toBeDefined();
-    expect(res.body.data.length).toBe(5); // Default seeded categories count
-    expect(res.body.meta.total).toBe(5);
+    const defaultCount = await prisma.category.count({
+      where: { userId: null },
+    });
+    expect(res.body.data.length).toBe(defaultCount);
+    expect(res.body.meta.total).toBe(defaultCount);
   });
 
   it('should filter categories by type', async () => {
@@ -45,7 +48,10 @@ describe('Category Module Integration Tests', () => {
 
     expect(res.body.success).toBe(true);
     const items = res.body.data as Category[];
-    expect(items.length).toBeLessThan(5);
+    const incomeCount = await prisma.category.count({
+      where: { userId: null, type: 'INCOME' },
+    });
+    expect(items).toHaveLength(incomeCount);
     expect(items.every((category) => category.type === 'INCOME')).toBe(true);
   });
 

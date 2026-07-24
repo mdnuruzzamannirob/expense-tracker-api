@@ -153,4 +153,42 @@ describe('Budget Module Integration Tests', () => {
     expect(res.body.success).toBe(true);
     expect(res.body.data.limit).toBe(150);
   });
+
+  it('creates a yearly budget and includes full-year spending in progress', async () => {
+    const year = new Date().getUTCFullYear();
+    const create = await request(app)
+      .post('/api/budgets')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        limit: 1200,
+        alertThreshold: 80,
+        period: 'YEARLY',
+        year,
+        categoryId: categoryIdFood,
+      })
+      .expect(201);
+
+    expect(create.body.data.period).toBe('YEARLY');
+    expect(create.body.data.month).toBeNull();
+
+    await request(app)
+      .post('/api/transactions')
+      .set('Authorization', `Bearer ${token}`)
+      .send({
+        amount: 100,
+        type: 'EXPENSE',
+        categoryId: categoryIdFood,
+        date: `${year}-01-15`,
+      })
+      .expect(201);
+
+    const list = await request(app)
+      .get(`/api/budgets?period=YEARLY&year=${year}`)
+      .set('Authorization', `Bearer ${token}`)
+      .expect(200);
+
+    expect(list.body.data).toHaveLength(1);
+    expect(list.body.data[0].progress.spent).toBe(100);
+    expect(list.body.data[0].progress.effectiveLimit).toBe(1200);
+  });
 });

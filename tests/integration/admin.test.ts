@@ -92,4 +92,43 @@ describe('Admin Module Integration Tests', () => {
     expect(res.body.data.transactionsCount).toBeDefined();
     expect(res.body.data.totalVolume).toBeDefined();
   });
+
+  it('exposes subscription, plan, category, log, template, and settings management', async () => {
+    const [subscriptions, plans, categories, logs, templates, settings] =
+      await Promise.all([
+        request(app)
+          .get('/api/admin/subscriptions')
+          .set('Authorization', `Bearer ${adminToken}`),
+        request(app)
+          .get('/api/admin/plans')
+          .set('Authorization', `Bearer ${adminToken}`),
+        request(app)
+          .get('/api/admin/categories')
+          .set('Authorization', `Bearer ${adminToken}`),
+        request(app)
+          .get('/api/admin/logs')
+          .set('Authorization', `Bearer ${adminToken}`),
+        request(app)
+          .get('/api/admin/email-templates')
+          .set('Authorization', `Bearer ${adminToken}`),
+        request(app)
+          .get('/api/admin/settings')
+          .set('Authorization', `Bearer ${adminToken}`),
+      ]);
+
+    for (const response of [
+      subscriptions,
+      plans,
+      categories,
+      logs,
+      templates,
+      settings,
+    ]) {
+      expect(response.status).toBe(200);
+      expect(response.body.success).toBe(true);
+    }
+    expect(plans.body.data).toHaveLength(4);
+    expect(categories.body.data.length).toBeGreaterThan(0);
+    expect(templates.body.data.length).toBeGreaterThan(0);
+  });
 });

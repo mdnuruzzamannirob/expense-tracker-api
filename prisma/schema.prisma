@@ -23,6 +23,11 @@ enum RecurringRule {
   MONTHLY
 }
 
+enum BudgetPeriod {
+  MONTHLY
+  YEARLY
+}
+
 enum SubscriptionStatus {
   ACTIVE
   PAST_DUE
@@ -174,13 +179,14 @@ model Budget {
   category       Category? @relation(fields: [categoryId], references: [id], onDelete: Restrict)
   limit          Decimal   @db.Decimal(12, 2)
   alertThreshold Int       @default(80)
-  month          Int
+  period         BudgetPeriod @default(MONTHLY)
+  month          Int?
   year           Int
   rollover       Boolean   @default(false)
   createdAt      DateTime  @default(now()) @db.Timestamptz(3)
   updatedAt      DateTime  @updatedAt @db.Timestamptz(3)
 
-  @@index([userId, year, month])
+  @@index([userId, period, year, month])
 }
 
 model SavingsGoal {

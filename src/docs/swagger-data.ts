@@ -186,7 +186,8 @@ const fileRequestBody = (fieldName: string) => ({
 });
 
 const openApiSpec: OpenApiDocument = {
-  openapi: '3.0.0',
+  openapi: '3.1.0',
+  jsonSchemaDialect: 'https://json-schema.org/draft/2020-12/schema',
   info: {
     title: 'Expense Tracker API',
     version: '1.0.0',
@@ -255,9 +256,9 @@ const openApiSpec: OpenApiDocument = {
           id: { type: 'string', format: 'uuid' },
           name: { type: 'string' },
           type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
-          icon: { type: 'string', nullable: true },
-          color: { type: 'string', nullable: true },
-          userId: { type: 'string', format: 'uuid' },
+          icon: { type: ['string', 'null'] },
+          color: { type: ['string', 'null'] },
+          userId: { type: ['string', 'null'], format: 'uuid' },
         },
       },
       Transaction: {
@@ -266,15 +267,14 @@ const openApiSpec: OpenApiDocument = {
           id: { type: 'string', format: 'uuid' },
           amount: { type: 'number' },
           type: { type: 'string', enum: ['INCOME', 'EXPENSE'] },
-          note: { type: 'string', nullable: true },
+          note: { type: ['string', 'null'] },
           date: { type: 'string', format: 'date-time' },
           tags: { type: 'array', items: { type: 'string' } },
-          receiptUrl: { type: 'string', nullable: true },
+          receiptUrl: { type: ['string', 'null'] },
           isRecurring: { type: 'boolean' },
           recurringRule: {
-            type: 'string',
+            type: ['string', 'null'],
             enum: ['DAILY', 'WEEKLY', 'MONTHLY'],
-            nullable: true,
           },
           categoryId: { type: 'string', format: 'uuid' },
           userId: { type: 'string', format: 'uuid' },
@@ -287,7 +287,8 @@ const openApiSpec: OpenApiDocument = {
           id: { type: 'string', format: 'uuid' },
           limit: { type: 'number' },
           alertThreshold: { type: 'integer' },
-          month: { type: 'integer' },
+          period: { type: 'string', enum: ['MONTHLY', 'YEARLY'] },
+          month: { type: ['integer', 'null'] },
           year: { type: 'integer' },
           categoryId: { type: 'string', format: 'uuid' },
           userId: { type: 'string', format: 'uuid' },
@@ -960,6 +961,11 @@ const openApiSpec: OpenApiDocument = {
           { name: 'month', in: 'query', schema: { type: 'integer' } },
           { name: 'year', in: 'query', schema: { type: 'integer' } },
           {
+            name: 'period',
+            in: 'query',
+            schema: { type: 'string', enum: ['MONTHLY', 'YEARLY'] },
+          },
+          {
             name: 'page',
             in: 'query',
             schema: { type: 'integer', default: 1 },
@@ -981,13 +987,28 @@ const openApiSpec: OpenApiDocument = {
             'application/json': {
               schema: {
                 type: 'object',
-                required: ['limit', 'month', 'year', 'categoryId'],
+                required: ['limit', 'year'],
                 properties: {
                   limit: { type: 'number', example: 10000 },
                   alertThreshold: { type: 'integer', example: 80 },
-                  month: { type: 'integer', example: 7 },
+                  period: {
+                    type: 'string',
+                    enum: ['MONTHLY', 'YEARLY'],
+                    default: 'MONTHLY',
+                  },
+                  month: {
+                    type: ['integer', 'null'],
+                    minimum: 1,
+                    maximum: 12,
+                    description: 'Required when period is MONTHLY',
+                    example: 7,
+                  },
                   year: { type: 'integer', example: 2026 },
-                  categoryId: { type: 'string', format: 'uuid' },
+                  categoryId: {
+                    type: ['string', 'null'],
+                    format: 'uuid',
+                  },
+                  rollover: { type: 'boolean', default: false },
                 },
               },
             },
@@ -1024,9 +1045,17 @@ const openApiSpec: OpenApiDocument = {
                 properties: {
                   limit: { type: 'number', example: 10000 },
                   alertThreshold: { type: 'integer', example: 80 },
-                  month: { type: 'integer', example: 7 },
+                  period: {
+                    type: 'string',
+                    enum: ['MONTHLY', 'YEARLY'],
+                  },
+                  month: { type: ['integer', 'null'], example: 7 },
                   year: { type: 'integer', example: 2026 },
-                  categoryId: { type: 'string', format: 'uuid' },
+                  categoryId: {
+                    type: ['string', 'null'],
+                    format: 'uuid',
+                  },
+                  rollover: { type: 'boolean' },
                 },
               },
             },

@@ -58,6 +58,8 @@ export const getDashboard = async (userId: string) => {
   const month = monthIndex + 1;
   const start = new Date(Date.UTC(year, monthIndex, 1));
   const end = new Date(Date.UTC(year, monthIndex + 1, 1));
+  const yearStart = new Date(Date.UTC(year, 0, 1));
+  const yearEnd = new Date(Date.UTC(year + 1, 0, 1));
   const periodFilter = { gte: start, lt: end };
 
   const [
@@ -65,6 +67,8 @@ export const getDashboard = async (userId: string) => {
     recurringTransactions,
     budgets,
     categoryExpenseTotals,
+    yearlyExpenseTotal,
+    yearlyCategoryExpenseTotals,
     savingsGoals,
     savingsTotals,
     savingsGoalCount,
@@ -94,7 +98,14 @@ export const getDashboard = async (userId: string) => {
       },
     }),
     prisma.budget.findMany({
-      where: { userId, month, year },
+      where: {
+        userId,
+        year,
+        OR: [
+          { period: 'MONTHLY', month },
+          { period: 'YEARLY', month: null },
+        ],
+      },
       include: { category: true },
       orderBy: { createdAt: 'asc' },
     }),
@@ -104,6 +115,23 @@ export const getDashboard = async (userId: string) => {
         userId,
         type: 'EXPENSE',
         date: periodFilter,
+      },
+      _sum: { amount: true },
+    }),
+    prisma.transaction.aggregate({
+      where: {
+        userId,
+        type: 'EXPENSE',
+        date: { gte: yearStart, lt: yearEnd },
+      },
+      _sum: { amount: true },
+    }),
+    prisma.transaction.groupBy({
+      by: ['categoryId'],
+      where: {
+        userId,
+        type: 'EXPENSE',
+        date: { gte: yearStart, lt: yearEnd },
       },
       _sum: { amount: true },
     }),
@@ -131,6 +159,13 @@ export const getDashboard = async (userId: string) => {
       asNumber(total._sum.amount),
     ]),
   );
+  const yearlyCategorySpending = new Map(
+    yearlyCategoryExpenseTotals.map((total) => [
+      total.categoryId,
+      asNumber(total._sum.amount),
+    ]),
+  );
+  const yearlyExpense = asNumber(yearlyExpenseTotal._sum.amount);
 
   const upcomingRecurringTransactions = recurringTransactions
     .map((transaction) => ({
@@ -152,9 +187,13 @@ export const getDashboard = async (userId: string) => {
   const budgetProgress = budgets.map((budget) => {
     const limit = asNumber(budget.limit);
     const spent =
-      budget.categoryId === null
-        ? expense
-        : (categorySpending.get(budget.categoryId) ?? 0);
+      budget.period === 'YEARLY'
+        ? budget.categoryId === null
+          ? yearlyExpense
+          : (yearlyCategorySpending.get(budget.categoryId) ?? 0)
+        : budget.categoryId === null
+          ? expense
+          : (categorySpending.get(budget.categoryId) ?? 0);
     const percentUsed = limit > 0 ? (spent / limit) * 100 : 0;
     return {
       ...budget,

@@ -4,6 +4,23 @@ CREATE TYPE "FamilyRole" AS ENUM ('VIEWER', 'EDITOR');
 CREATE TYPE "InvitationStatus" AS ENUM ('PENDING', 'ACCEPTED', 'REVOKED', 'EXPIRED');
 CREATE TYPE "NotificationType" AS ENUM ('BUDGET_ALERT', 'SUBSCRIPTION', 'SYSTEM');
 
+-- Preserve valid UUIDs and deterministically map legacy Prisma CUID/text IDs.
+-- Applying the same function to primary and foreign keys keeps relationships intact.
+CREATE FUNCTION legacy_text_to_uuid(value TEXT) RETURNS UUID
+LANGUAGE SQL IMMUTABLE STRICT AS $$
+  SELECT CASE
+    WHEN value ~* '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+      THEN value::uuid
+    ELSE (
+      substr(md5(value), 1, 8) || '-' ||
+      substr(md5(value), 9, 4) || '-' ||
+      '4' || substr(md5(value), 14, 3) || '-' ||
+      '8' || substr(md5(value), 18, 3) || '-' ||
+      substr(md5(value), 21, 12)
+    )::uuid
+  END
+$$;
+
 -- Native UUID conversion requires temporarily removing the v1 foreign keys.
 ALTER TABLE "Category" DROP CONSTRAINT "Category_userId_fkey";
 ALTER TABLE "Transaction" DROP CONSTRAINT "Transaction_userId_fkey";
@@ -15,7 +32,7 @@ ALTER TABLE "RefreshToken" DROP CONSTRAINT "RefreshToken_userId_fkey";
 ALTER TABLE "PasswordResetToken" DROP CONSTRAINT "PasswordResetToken_userId_fkey";
 
 ALTER TABLE "User"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
   ALTER COLUMN "password" DROP NOT NULL,
   ALTER COLUMN "currency" SET DEFAULT 'USD',
   ALTER COLUMN "createdAt" TYPE TIMESTAMPTZ(3) USING "createdAt" AT TIME ZONE 'UTC',
@@ -33,8 +50,8 @@ UPDATE "User" SET "updatedAt" = "createdAt" WHERE "updatedAt" IS NULL;
 ALTER TABLE "User" ALTER COLUMN "updatedAt" SET NOT NULL;
 
 ALTER TABLE "Category"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
   ALTER COLUMN "userId" DROP NOT NULL,
   ADD COLUMN "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ADD COLUMN "updatedAt" TIMESTAMPTZ(3);
@@ -42,9 +59,9 @@ UPDATE "Category" SET "updatedAt" = "createdAt" WHERE "updatedAt" IS NULL;
 ALTER TABLE "Category" ALTER COLUMN "updatedAt" SET NOT NULL;
 
 ALTER TABLE "Transaction"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
-  ALTER COLUMN "categoryId" TYPE UUID USING "categoryId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
+  ALTER COLUMN "categoryId" TYPE UUID USING legacy_text_to_uuid("categoryId"),
   ALTER COLUMN "amount" TYPE DECIMAL(12,2) USING ROUND("amount"::numeric, 2),
   ALTER COLUMN "date" TYPE DATE USING "date"::date,
   ALTER COLUMN "note" TYPE VARCHAR(500),
@@ -62,9 +79,9 @@ UPDATE "Transaction" SET "updatedAt" = "createdAt" WHERE "updatedAt" IS NULL;
 ALTER TABLE "Transaction" ALTER COLUMN "updatedAt" SET NOT NULL;
 
 ALTER TABLE "Budget"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
-  ALTER COLUMN "categoryId" TYPE UUID USING "categoryId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
+  ALTER COLUMN "categoryId" TYPE UUID USING legacy_text_to_uuid("categoryId"),
   ALTER COLUMN "categoryId" DROP NOT NULL,
   ALTER COLUMN "limit" TYPE DECIMAL(12,2) USING ROUND("limit"::numeric, 2),
   ADD COLUMN "rollover" BOOLEAN NOT NULL DEFAULT false,
@@ -74,8 +91,8 @@ UPDATE "Budget" SET "updatedAt" = "createdAt" WHERE "updatedAt" IS NULL;
 ALTER TABLE "Budget" ALTER COLUMN "updatedAt" SET NOT NULL;
 
 ALTER TABLE "SavingsGoal"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
   ALTER COLUMN "targetAmount" TYPE DECIMAL(12,2) USING ROUND("targetAmount"::numeric, 2),
   ALTER COLUMN "currentAmount" TYPE DECIMAL(12,2) USING ROUND("currentAmount"::numeric, 2),
   ALTER COLUMN "currentAmount" SET DEFAULT 0,
@@ -86,14 +103,14 @@ UPDATE "SavingsGoal" SET "updatedAt" = "createdAt" WHERE "updatedAt" IS NULL;
 ALTER TABLE "SavingsGoal" ALTER COLUMN "updatedAt" SET NOT NULL;
 
 ALTER TABLE "RefreshToken"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
   ALTER COLUMN "expiresAt" TYPE TIMESTAMPTZ(3) USING "expiresAt" AT TIME ZONE 'UTC',
   ADD COLUMN "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
 ALTER TABLE "PasswordResetToken"
-  ALTER COLUMN "id" TYPE UUID USING "id"::uuid,
-  ALTER COLUMN "userId" TYPE UUID USING "userId"::uuid,
+  ALTER COLUMN "id" TYPE UUID USING legacy_text_to_uuid("id"),
+  ALTER COLUMN "userId" TYPE UUID USING legacy_text_to_uuid("userId"),
   ALTER COLUMN "expiresAt" TYPE TIMESTAMPTZ(3) USING "expiresAt" AT TIME ZONE 'UTC',
   ADD COLUMN "createdAt" TIMESTAMPTZ(3) NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
@@ -115,6 +132,8 @@ ALTER TABLE "Budget" ADD CONSTRAINT "Budget_categoryId_fkey" FOREIGN KEY ("categ
 ALTER TABLE "SavingsGoal" ADD CONSTRAINT "SavingsGoal_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "RefreshToken" ADD CONSTRAINT "RefreshToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE "PasswordResetToken" ADD CONSTRAINT "PasswordResetToken_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+DROP FUNCTION legacy_text_to_uuid(TEXT);
 
 CREATE TABLE "Plan" (
   "id" UUID NOT NULL,

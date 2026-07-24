@@ -1,5 +1,6 @@
 {
-  "openapi": "3.0.0",
+  "openapi": "3.1.0",
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
   "info": {
     "title": "Expense Tracker API",
     "version": "1.0.0",
@@ -140,15 +141,22 @@
             ]
           },
           "icon": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "color": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "userId": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uuid"
           }
         }
@@ -171,8 +179,10 @@
             ]
           },
           "note": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "date": {
             "type": "string",
@@ -185,20 +195,24 @@
             }
           },
           "receiptUrl": {
-            "type": "string",
-            "nullable": true
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "isRecurring": {
             "type": "boolean"
           },
           "recurringRule": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "enum": [
               "DAILY",
               "WEEKLY",
               "MONTHLY"
-            ],
-            "nullable": true
+            ]
           },
           "categoryId": {
             "type": "string",
@@ -227,8 +241,18 @@
           "alertThreshold": {
             "type": "integer"
           },
+          "period": {
+            "type": "string",
+            "enum": [
+              "MONTHLY",
+              "YEARLY"
+            ]
+          },
           "month": {
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           },
           "year": {
             "type": "integer"
@@ -1559,7 +1583,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.421Z"
             }
           },
           {
@@ -1568,7 +1592,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.423Z"
             }
           },
           {
@@ -1733,7 +1757,7 @@
                   "date": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-21T11:21:38.637Z"
+                    "example": "2026-07-24T10:53:07.423Z"
                   },
                   "tags": {
                     "type": "array",
@@ -1769,7 +1793,7 @@
                   "type": "INCOME",
                   "categoryId": "00000000-0000-0000-0000-000000000001",
                   "note": "Salary for July",
-                  "date": "2026-07-21T11:21:38.637Z",
+                  "date": "2026-07-24T10:53:07.423Z",
                   "tags": [
                     "salary",
                     "monthly"
@@ -2032,7 +2056,7 @@
                   "date": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-21T11:21:38.637Z"
+                    "example": "2026-07-24T10:53:07.423Z"
                   },
                   "tags": {
                     "type": "array",
@@ -2068,7 +2092,7 @@
                   "type": "INCOME",
                   "categoryId": "00000000-0000-0000-0000-000000000001",
                   "note": "Salary for July",
-                  "date": "2026-07-21T11:21:38.637Z",
+                  "date": "2026-07-24T10:53:07.423Z",
                   "tags": [
                     "salary",
                     "monthly"
@@ -2223,6 +2247,19 @@
             }
           },
           {
+            "name": "period",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "MONTHLY",
+                "YEARLY"
+              ],
+              "example": "MONTHLY"
+            },
+            "description": "Allowed values: MONTHLY, YEARLY"
+          },
+          {
             "name": "page",
             "in": "query",
             "schema": {
@@ -2293,9 +2330,7 @@
                 "type": "object",
                 "required": [
                   "limit",
-                  "month",
-                  "year",
-                  "categoryId"
+                  "year"
                 ],
                 "properties": {
                   "limit": {
@@ -2306,8 +2341,23 @@
                     "type": "integer",
                     "example": 80
                   },
+                  "period": {
+                    "type": "string",
+                    "enum": [
+                      "MONTHLY",
+                      "YEARLY"
+                    ],
+                    "default": "MONTHLY",
+                    "example": "MONTHLY"
+                  },
                   "month": {
-                    "type": "integer",
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1,
+                    "maximum": 12,
+                    "description": "Required when period is MONTHLY",
                     "example": 7
                   },
                   "year": {
@@ -2315,17 +2365,25 @@
                     "example": 2026
                   },
                   "categoryId": {
-                    "type": "string",
-                    "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000001"
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "rollover": {
+                    "type": "boolean",
+                    "default": false,
+                    "example": false
                   }
                 },
                 "example": {
                   "limit": 10000,
                   "alertThreshold": 80,
+                  "period": "MONTHLY",
                   "month": 7,
                   "year": 2026,
-                  "categoryId": "00000000-0000-0000-0000-000000000001"
+                  "rollover": false
                 }
               }
             }
@@ -2439,8 +2497,19 @@
                     "type": "integer",
                     "example": 80
                   },
+                  "period": {
+                    "type": "string",
+                    "enum": [
+                      "MONTHLY",
+                      "YEARLY"
+                    ],
+                    "example": "MONTHLY"
+                  },
                   "month": {
-                    "type": "integer",
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
                     "example": 7
                   },
                   "year": {
@@ -2448,17 +2517,24 @@
                     "example": 2026
                   },
                   "categoryId": {
-                    "type": "string",
-                    "format": "uuid",
-                    "example": "00000000-0000-0000-0000-000000000001"
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid"
+                  },
+                  "rollover": {
+                    "type": "boolean",
+                    "example": true
                   }
                 },
                 "example": {
                   "limit": 10000,
                   "alertThreshold": 80,
+                  "period": "MONTHLY",
                   "month": 7,
                   "year": 2026,
-                  "categoryId": "00000000-0000-0000-0000-000000000001"
+                  "rollover": true
                 }
               }
             }
@@ -2683,13 +2759,13 @@
                   "deadline": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2026-07-21T11:21:38.637Z"
+                    "example": "2026-07-24T10:53:07.423Z"
                   }
                 },
                 "example": {
                   "title": "New Laptop",
                   "targetAmount": 120000,
-                  "deadline": "2026-07-21T11:21:38.637Z"
+                  "deadline": "2026-07-24T10:53:07.423Z"
                 }
               }
             }
@@ -3177,7 +3253,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.423Z"
             }
           },
           {
@@ -3187,7 +3263,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.423Z"
             }
           }
         ],
@@ -3714,7 +3790,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.423Z"
             }
           },
           {
@@ -3723,7 +3799,7 @@
             "schema": {
               "type": "string",
               "format": "date-time",
-              "example": "2026-07-21T11:21:38.637Z"
+              "example": "2026-07-24T10:53:07.423Z"
             }
           },
           {

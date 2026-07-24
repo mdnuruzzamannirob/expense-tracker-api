@@ -30,11 +30,8 @@ const toJsonSafe = (value: unknown): unknown => {
   if (value instanceof Date) return value;
   if (Buffer.isBuffer(value)) return value;
   if (value && typeof value === 'object') {
-    const decimal = value as { constructor?: { name?: string }; toNumber?: () => number };
-    if (
-      decimal.constructor?.name === 'Decimal' &&
-      typeof decimal.toNumber === 'function'
-    ) {
+    const decimal = value as { toNumber?: () => number };
+    if (typeof decimal.toNumber === 'function') {
       return decimal.toNumber();
     }
 
